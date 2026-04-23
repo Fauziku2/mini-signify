@@ -1,6 +1,8 @@
 node_modules
 dist
 .env
+frontend/.env
+backend/.env
 uploads
 .DS_Store
 frontend/node_modules
