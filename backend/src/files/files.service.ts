@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { unlink } from 'fs/promises';
-import { join } from 'path';
+import { extname } from 'path';
 import { Repository } from 'typeorm';
+import { S3Service } from '../s3/s3.service';
 import { FileEntity } from './entities/file.entity';
 
 @Injectable()
@@ -10,13 +10,23 @@ export class FilesService {
   constructor(
     @InjectRepository(FileEntity)
     private readonly filesRepository: Repository<FileEntity>,
+    private readonly s3Service: S3Service,
   ) {}
 
   async create(file: Express.Multer.File): Promise<FileEntity> {
+    const storedFileName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${extname(file.originalname)}`;
+    const s3Key = `uploads/${storedFileName}`;
+
+    await this.s3Service.uploadFile({
+      key: s3Key,
+      body: file.buffer,
+      contentType: file.mimetype,
+    });
+
     const entity = this.filesRepository.create({
       originalFileName: file.originalname,
-      storedFileName: file.filename,
-      filePath: file.path,
+      storedFileName,
+      s3Key,
       mimeType: file.mimetype,
       size: file.size,
     });
@@ -47,12 +57,7 @@ export class FilesService {
   async remove(id: string): Promise<{ message: string }> {
     const file = await this.findOne(id);
 
-    try {
-      await unlink(join(process.cwd(), file.filePath));
-    } catch {
-      // ignore if file already missing on disk
-    }
-
+    await this.s3Service.deleteFile(file.s3Key);
     await this.filesRepository.delete(id);
 
     return {

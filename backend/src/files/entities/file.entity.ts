@@ -1,9 +1,4 @@
-import { 
-    Column,
-    CreateDateColumn,
-    Entity, 
-    PrimaryGeneratedColumn 
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'files' })
 export class FileEntity {
@@ -16,8 +11,8 @@ export class FileEntity {
   @Column({ unique: true })
   storedFileName: string;
 
-  @Column()
-  filePath: string;
+  @Column({ unique: true })
+  s3Key: string;
 
   @Column()
   mimeType: string;
