@@ -54,6 +54,13 @@ export class FilesService {
     return file;
   }
 
+  async getDownloadUrl(id: string): Promise<{ downloadUrl: string }> {
+    const file = await this.findOne(id);
+    const downloadUrl = await this.s3Service.getDownloadUrl(file.s3Key);
+
+    return { downloadUrl };
+  }
+
   async remove(id: string): Promise<{ message: string }> {
     const file = await this.findOne(id);
 

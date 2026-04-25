@@ -1,17 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import axios from 'axios'
+import { Box, Heading, Text, VStack } from '@chakra-ui/react'
+import UploadPdfForm from './components/UploadPdfForm'
+import UploadedFilesTable from './components/UploadedFilesTable'
 import {
-  Box,
-  Button,
-  Heading,
-  HStack,
-  Input,
-  Table,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+  deleteFile,
+  getDownloadUrl,
+  getFiles,
+  uploadFile,
+} from './api/files'
 
 function App() {
   const [files, setFiles] = useState([])
@@ -24,8 +20,8 @@ function App() {
   const fetchFiles = async () => {
     try {
       setErrorMessage('')
-      const response = await axios.get(`${API_BASE_URL}/files`)
-      setFiles(response.data)
+      const data = await getFiles()
+      setFiles(data)
     } catch (error) {
       setErrorMessage('Failed to load files')
       console.error(error)
@@ -47,18 +43,11 @@ function App() {
       return
     }
 
-    const formData = new FormData()
-    formData.append('file', selectedFile)
-
     try {
       setIsUploading(true)
       setErrorMessage('')
 
-      await axios.post(`${API_BASE_URL}/files`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      await uploadFile(selectedFile)
 
       setSelectedFile(null)
       if (fileInputRef.current) {
@@ -80,13 +69,25 @@ function App() {
     try {
       setIsDeletingId(id)
       setErrorMessage('')
-      await axios.delete(`${API_BASE_URL}/files/${id}`)
+      await deleteFile(id)
       await fetchFiles()
     } catch (error) {
       setErrorMessage('Failed to delete file')
       console.error(error)
     } finally {
       setIsDeletingId(null)
+    }
+  }
+
+  const handleDownload = async (id) => {
+    try {
+      setErrorMessage('')
+      const { downloadUrl } = await getDownloadUrl(id)
+
+      window.open(downloadUrl, '_blank')
+    } catch (error) {
+      setErrorMessage('Failed to download file')
+      console.error(error)
     }
   }
 
@@ -105,96 +106,37 @@ function App() {
         <Box>
           <Heading size="lg">Mini Signify</Heading>
           <Text mt={2} color="gray.600">
-            Upload, view, and delete PDF files
+            Upload, view, download, and delete PDF files
           </Text>
         </Box>
 
-        <Box borderWidth="1px" rounded="md" p={4}>
-          <VStack align="stretch" spacing={4}>
-            <Text fontWeight="semibold">Upload PDF</Text>
-
-            <Input
-              ref={fileInputRef}
-              type="file"
-              accept="application/pdf"
-              onChange={handleFileChange}
-              p={1}
-            />
-
-            {selectedFile && (
-              <Text fontSize="sm" color="gray.600">
-                Selected file: {selectedFile.name}
-              </Text>
-            )}
-
-            <HStack>
-              <Button
-                colorScheme="blue"
-                onClick={handleUpload}
-                isLoading={isUploading}
-                loadingText="Uploading"
-              >
-                Upload
-              </Button>
-            </HStack>
-          </VStack>
-        </Box>
+        <UploadPdfForm
+          selectedFile={selectedFile}
+          isUploading={isUploading}
+          onFileChange={handleFileChange}
+          onUpload={handleUpload}
+          fileInputRef={fileInputRef}
+        />
 
         {errorMessage && (
-          <Box bg="red.50" borderWidth="1px" borderColor="red.200" rounded="md" p={3}>
+          <Box
+            bg="red.50"
+            borderWidth="1px"
+            borderColor="red.200"
+            rounded="md"
+            p={3}
+          >
             <Text color="red.600">{errorMessage}</Text>
           </Box>
         )}
 
-        <Box borderWidth="1px" rounded="md" p={4}>
-          <VStack align="stretch" spacing={4}>
-            <HStack justify="space-between">
-              <Text fontWeight="semibold">Uploaded Files</Text>
-              <Button variant="outline" onClick={fetchFiles}>
-                Refresh
-              </Button>
-            </HStack>
-
-            {files.length === 0 ? (
-              <Text color="gray.500">No files uploaded yet</Text>
-            ) : (
-              <Table.Root size="sm" variant="outline">
-                <Table.Header>
-                  <Table.Row>
-                    <Table.ColumnHeader>File Name</Table.ColumnHeader>
-                    <Table.ColumnHeader>MIME Type</Table.ColumnHeader>
-                    <Table.ColumnHeader>Size (bytes)</Table.ColumnHeader>
-                    <Table.ColumnHeader>Created At</Table.ColumnHeader>
-                    <Table.ColumnHeader>Action</Table.ColumnHeader>
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {files.map((file) => (
-                    <Table.Row key={file.id}>
-                      <Table.Cell>{file.originalFileName}</Table.Cell>
-                      <Table.Cell>{file.mimeType}</Table.Cell>
-                      <Table.Cell>{file.size}</Table.Cell>
-                      <Table.Cell>
-                        {new Date(file.createdAt).toLocaleString()}
-                      </Table.Cell>
-                      <Table.Cell>
-                        <Button
-                          size="sm"
-                          colorScheme="red"
-                          onClick={() => handleDelete(file.id)}
-                          isLoading={isDeletingId === file.id}
-                          loadingText="Deleting"
-                        >
-                          Delete
-                        </Button>
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table.Root>
-            )}
-          </VStack>
-        </Box>
+        <UploadedFilesTable
+          files={files}
+          isDeletingId={isDeletingId}
+          onRefresh={fetchFiles}
+          onDelete={handleDelete}
+          onDownload={handleDownload}
+        />
       </VStack>
     </Box>
   )

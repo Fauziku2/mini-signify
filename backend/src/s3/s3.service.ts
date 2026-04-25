@@ -1,6 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { DeleteObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { DeleteObjectCommand, GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 @Injectable()
 export class S3Service {
@@ -61,4 +62,20 @@ export class S3Service {
       throw new InternalServerErrorException('Failed to delete file from S3');
     }
   }
+
+  async getDownloadUrl(key: string): Promise<string> {
+  try {
+    const command = new GetObjectCommand({
+      Bucket: this.bucketName,
+      Key: key,
+    });
+
+    return await getSignedUrl(this.s3Client, command, {
+      expiresIn: 300,
+    });
+  } catch (error) {
+    console.error('Failed to generate download URL from S3', error);
+    throw new InternalServerErrorException('Failed to generate download URL');
+  }
+}
 }

@@ -45,6 +45,11 @@ export class FilesController {
     return this.filesService.findAll();
   }
 
+  @Get(':id/download')
+  async downloadFile(@Param('id', ParseUUIDPipe) id: string) {
+    return this.filesService.getDownloadUrl(id);
+  }
+
   @Get(':id')
   async getFile(@Param('id', ParseUUIDPipe) id: string) {
     return this.filesService.findOne(id);
