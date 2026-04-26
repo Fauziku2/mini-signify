@@ -27,3 +27,4 @@ This is because the React app runs in the browser after the static files are ser
 
 - container -> host service: `host.docker.internal`
 - browser -> host service: `localhost`
+Testing GitHub Actions PR flow.
