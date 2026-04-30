@@ -128,3 +128,49 @@ jobs:
           docker push "$IMAGE_URI"
 
           echo "Pushed image: $IMAGE_URI"
+
+  deploy-frontend-to-s3:
+    name: Deploy Frontend to S3
+    runs-on: ubuntu-latest
+    needs:
+      - frontend-build
+
+    # Only deploy frontend when code is pushed to main.
+    # Pull requests will only run build checks.
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+        env:
+          VITE_API_BASE_URL: http://localhost:3000
+
+      - name: Configure AWS credentials using GitHub OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Confirm AWS identity
+        run: aws sts get-caller-identity
+        working-directory: .
+
+      - name: Upload frontend dist to S3
+        run: aws s3 sync dist s3://${{ env.FRONTEND_S3_BUCKET }} --delete
