@@ -15,6 +15,7 @@ env:
   AWS_ROLE_TO_ASSUME: arn:aws:iam::877269913405:role/mini-signify-github-actions-role
   BACKEND_ECR_REGISTRY: 877269913405.dkr.ecr.ap-southeast-1.amazonaws.com
   BACKEND_ECR_REPOSITORY: mini-signify-backend
+  FRONTEND_S3_BUCKET: mini-signify-frontend-877269913405-ap-southeast-1
 
 jobs:
   backend-build:
