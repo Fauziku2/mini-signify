@@ -6,6 +6,16 @@ on:
       - main
   pull_request:
 
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  AWS_REGION: ap-southeast-1
+  AWS_ROLE_TO_ASSUME: arn:aws:iam::877269913405:role/mini-signify-github-actions-role
+  BACKEND_ECR_REGISTRY: 877269913405.dkr.ecr.ap-southeast-1.amazonaws.com
+  BACKEND_ECR_REPOSITORY: mini-signify-backend
+
 jobs:
   backend-build:
     name: Backend Build
@@ -82,3 +92,39 @@ jobs:
 
       - name: Build frontend Docker image
         run: docker build -t mini-signify-frontend ./frontend
+
+  push-backend-to-ecr:
+    name: Push Backend Image to ECR
+    runs-on: ubuntu-latest
+    needs:
+      - backend-build
+      - backend-docker-build
+
+    # Only push Docker image when code is pushed to main.
+    # Pull requests will only run build checks.
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials using GitHub OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Confirm AWS identity
+        run: aws sts get-caller-identity
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push backend image
+        run: |
+          IMAGE_URI="${BACKEND_ECR_REGISTRY}/${BACKEND_ECR_REPOSITORY}:${GITHUB_SHA}"
+
+          docker build -t "$IMAGE_URI" ./backend
+          docker push "$IMAGE_URI"
+
+          echo "Pushed image: $IMAGE_URI"
