@@ -15,7 +15,7 @@ const backendRepository = new aws.ecr.Repository("miniSignifyBackendRepo", {
   imageTagMutability: "MUTABLE",
 });
 
-// S3 bucket for future frontend static hosting
+// S3 bucket for frontend static files
 const frontendBucket = new aws.s3.Bucket("miniSignifyFrontendBucket", {
   bucket: "mini-signify-frontend-877269913405-ap-southeast-1",
 });
@@ -29,6 +29,108 @@ const frontendBucketPublicAccessBlock = new aws.s3.BucketPublicAccessBlock(
     blockPublicPolicy: true,
     ignorePublicAcls: true,
     restrictPublicBuckets: true,
+  },
+);
+
+// CloudFront OAC allows CloudFront to access private S3
+const frontendOriginAccessControl = new aws.cloudfront.OriginAccessControl(
+  "miniSignifyFrontendOac",
+  {
+    name: "mini-signify-frontend-oac",
+    description: "OAC for mini-signify frontend S3 bucket",
+    originAccessControlOriginType: "s3",
+    signingBehavior: "always",
+    signingProtocol: "sigv4",
+  },
+);
+
+// CloudFront distribution for frontend app
+const frontendDistribution = new aws.cloudfront.Distribution(
+  "miniSignifyFrontendDistribution",
+  {
+    enabled: true,
+    defaultRootObject: "index.html",
+
+    origins: [
+      {
+        originId: "mini-signify-frontend-s3-origin",
+        domainName: frontendBucket.bucketRegionalDomainName,
+        originAccessControlId: frontendOriginAccessControl.id,
+        s3OriginConfig: {
+          originAccessIdentity: "",
+        },
+      },
+    ],
+
+    defaultCacheBehavior: {
+      targetOriginId: "mini-signify-frontend-s3-origin",
+      viewerProtocolPolicy: "redirect-to-https",
+
+      allowedMethods: ["GET", "HEAD", "OPTIONS"],
+      cachedMethods: ["GET", "HEAD"],
+
+      forwardedValues: {
+        queryString: false,
+        cookies: {
+          forward: "none",
+        },
+      },
+    },
+
+    // Helps React Router / SPA routes work after refresh
+    customErrorResponses: [
+      {
+        errorCode: 403,
+        responseCode: 200,
+        responsePagePath: "/index.html",
+      },
+      {
+        errorCode: 404,
+        responseCode: 200,
+        responsePagePath: "/index.html",
+      },
+    ],
+
+    restrictions: {
+      geoRestriction: {
+        restrictionType: "none",
+      },
+    },
+
+    viewerCertificate: {
+      cloudfrontDefaultCertificate: true,
+    },
+  },
+);
+
+// Allow CloudFront distribution to read files from private S3 bucket
+const frontendBucketPolicy = new aws.s3.BucketPolicy(
+  "miniSignifyFrontendBucketPolicy",
+  {
+    bucket: frontendBucket.id,
+    policy: pulumi
+      .all([frontendBucket.arn, frontendDistribution.arn])
+      .apply(([bucketArn, distributionArn]) =>
+        JSON.stringify({
+          Version: "2012-10-17",
+          Statement: [
+            {
+              Sid: "AllowCloudFrontReadAccess",
+              Effect: "Allow",
+              Principal: {
+                Service: "cloudfront.amazonaws.com",
+              },
+              Action: "s3:GetObject",
+              Resource: `${bucketArn}/*`,
+              Condition: {
+                StringEquals: {
+                  "AWS:SourceArn": distributionArn,
+                },
+              },
+            },
+          ],
+        }),
+      ),
   },
 );
 
@@ -79,14 +181,12 @@ const githubActionsPolicy = new aws.iam.Policy("githubActionsPolicy", {
         Version: "2012-10-17",
         Statement: [
           {
-            // Needed for Docker login to ECR
             Sid: "AllowEcrAuthToken",
             Effect: "Allow",
             Action: ["ecr:GetAuthorizationToken"],
             Resource: "*",
           },
           {
-            // Allow pushing/pulling backend images only to this ECR repo
             Sid: "AllowBackendEcrPushPull",
             Effect: "Allow",
             Action: [
@@ -104,14 +204,12 @@ const githubActionsPolicy = new aws.iam.Policy("githubActionsPolicy", {
             Resource: backendRepoArn,
           },
           {
-            // Allow listing the frontend bucket
             Sid: "AllowFrontendBucketList",
             Effect: "Allow",
             Action: ["s3:ListBucket"],
             Resource: frontendBucketArn,
           },
           {
-            // Allow uploading/deleting frontend build files
             Sid: "AllowFrontendAssetsUploadDelete",
             Effect: "Allow",
             Action: ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
@@ -135,6 +233,8 @@ const githubActionsPolicyAttachment = new aws.iam.RolePolicyAttachment(
 export const backendRepositoryUrl = backendRepository.repositoryUrl;
 export const frontendBucketName = frontendBucket.bucket;
 export const frontendBucketPublicAccessBlockId = frontendBucketPublicAccessBlock.id;
+export const frontendDistributionDomainName = frontendDistribution.domainName;
+export const frontendDistributionId = frontendDistribution.id;
 export const githubOidcProviderArn = githubOidcProvider.arn;
 export const githubActionsRoleArn = githubActionsRole.arn;
 export const githubActionsPolicyArn = githubActionsPolicy.arn;
