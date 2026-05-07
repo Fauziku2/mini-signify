@@ -240,6 +240,37 @@ const githubActionsPolicyAttachment = new aws.iam.RolePolicyAttachment(
   },
 );
 
+// ECS cluster for backend service
+const backendCluster = new aws.ecs.Cluster("miniSignifyBackendCluster", {
+  name: "mini-signify-backend-cluster",
+});
+
+// CloudWatch log group for backend container logs
+const backendLogGroup = new aws.cloudwatch.LogGroup("miniSignifyBackendLogGroup", {
+  name: "/ecs/mini-signify-backend",
+  retentionInDays: 7,
+});
+
+// IAM role used by ECS to pull image from ECR and write logs
+const backendTaskExecutionRole = new aws.iam.Role(
+  "miniSignifyBackendTaskExecutionRole",
+  {
+    name: "mini-signify-backend-task-execution-role",
+    assumeRolePolicy: JSON.stringify({
+      Version: "2012-10-17",
+      Statement: [
+        {
+          Effect: "Allow",
+          Principal: {
+            Service: "ecs-tasks.amazonaws.com",
+          },
+          Action: "sts:AssumeRole",
+        },
+      ],
+    }),
+  },
+);
+
 // Useful Pulumi outputs
 export const backendRepositoryUrl = backendRepository.repositoryUrl;
 export const frontendBucketName = frontendBucket.bucket;
@@ -250,3 +281,6 @@ export const githubOidcProviderArn = githubOidcProvider.arn;
 export const githubActionsRoleArn = githubActionsRole.arn;
 export const githubActionsPolicyArn = githubActionsPolicy.arn;
 export const githubActionsPolicyAttachmentId = githubActionsPolicyAttachment.id;
+export const backendClusterName = backendCluster.name;
+export const backendLogGroupName = backendLogGroup.name;
+export const backendTaskExecutionRoleArn = backendTaskExecutionRole.arn;
