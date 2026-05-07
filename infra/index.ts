@@ -271,6 +271,141 @@ const backendTaskExecutionRole = new aws.iam.Role(
   },
 );
 
+// VPC for backend ECS/ALB networking
+const backendVpc = new aws.ec2.Vpc("miniSignifyBackendVpc", {
+  cidrBlock: "10.0.0.0/16",
+  enableDnsHostnames: true,
+  enableDnsSupport: true,
+  tags: {
+    Name: "mini-signify-backend-vpc",
+  },
+});
+
+// Internet Gateway for public internet access
+const backendInternetGateway = new aws.ec2.InternetGateway(
+  "miniSignifyBackendInternetGateway",
+  {
+    vpcId: backendVpc.id,
+    tags: {
+      Name: "mini-signify-backend-igw",
+    },
+  },
+);
+
+// Public subnet in AZ 1
+const backendPublicSubnetA = new aws.ec2.Subnet("miniSignifyBackendPublicSubnetA", {
+  vpcId: backendVpc.id,
+  cidrBlock: "10.0.1.0/24",
+  availabilityZone: "ap-southeast-1a",
+  mapPublicIpOnLaunch: true,
+  tags: {
+    Name: "mini-signify-backend-public-subnet-a",
+  },
+});
+
+const backendPublicSubnetB = new aws.ec2.Subnet("miniSignifyBackendPublicSubnetB", {
+  vpcId: backendVpc.id,
+  cidrBlock: "10.0.2.0/24",
+  availabilityZone: "ap-southeast-1b",
+  mapPublicIpOnLaunch: true,
+  tags: {
+    Name: "mini-signify-backend-public-subnet-b",
+  },
+});
+
+// Route table for public subnets
+const backendPublicRouteTable = new aws.ec2.RouteTable(
+  "miniSignifyBackendPublicRouteTable",
+  {
+    vpcId: backendVpc.id,
+    routes: [
+      {
+        cidrBlock: "0.0.0.0/0",
+        gatewayId: backendInternetGateway.id,
+      },
+    ],
+    tags: {
+      Name: "mini-signify-backend-public-rt",
+    },
+  },
+);
+
+// Associate route table with subnet A
+new aws.ec2.RouteTableAssociation("miniSignifyBackendPublicSubnetAAssociation", {
+  subnetId: backendPublicSubnetA.id,
+  routeTableId: backendPublicRouteTable.id,
+});
+
+// Associate route table with subnet B
+new aws.ec2.RouteTableAssociation("miniSignifyBackendPublicSubnetBAssociation", {
+  subnetId: backendPublicSubnetB.id,
+  routeTableId: backendPublicRouteTable.id,
+});
+
+// Security group for public ALB
+const backendAlbSecurityGroup = new aws.ec2.SecurityGroup(
+  "miniSignifyBackendAlbSecurityGroup",
+  {
+    name: "mini-signify-backend-alb-sg",
+    description: "Allow public HTTP/HTTPS traffic to backend ALB",
+    vpcId: backendVpc.id,
+    ingress: [
+      {
+        protocol: "tcp",
+        fromPort: 80,
+        toPort: 80,
+        cidrBlocks: ["0.0.0.0/0"],
+      },
+      {
+        protocol: "tcp",
+        fromPort: 443,
+        toPort: 443,
+        cidrBlocks: ["0.0.0.0/0"],
+      },
+    ],
+    egress: [
+      {
+        protocol: "-1",
+        fromPort: 0,
+        toPort: 0,
+        cidrBlocks: ["0.0.0.0/0"],
+      },
+    ],
+    tags: {
+      Name: "mini-signify-backend-alb-sg",
+    },
+  },
+);
+
+// Security group for backend ECS tasks
+const backendTaskSecurityGroup = new aws.ec2.SecurityGroup(
+  "miniSignifyBackendTaskSecurityGroup",
+  {
+    name: "mini-signify-backend-task-sg",
+    description: "Allow backend traffic only from ALB",
+    vpcId: backendVpc.id,
+    ingress: [
+      {
+        protocol: "tcp",
+        fromPort: 3000,
+        toPort: 3000,
+        securityGroups: [backendAlbSecurityGroup.id],
+      },
+    ],
+    egress: [
+      {
+        protocol: "-1",
+        fromPort: 0,
+        toPort: 0,
+        cidrBlocks: ["0.0.0.0/0"],
+      },
+    ],
+    tags: {
+      Name: "mini-signify-backend-task-sg",
+    },
+  },
+);
+
 // Useful Pulumi outputs
 export const backendRepositoryUrl = backendRepository.repositoryUrl;
 export const frontendBucketName = frontendBucket.bucket;
@@ -284,3 +419,8 @@ export const githubActionsPolicyAttachmentId = githubActionsPolicyAttachment.id;
 export const backendClusterName = backendCluster.name;
 export const backendLogGroupName = backendLogGroup.name;
 export const backendTaskExecutionRoleArn = backendTaskExecutionRole.arn;
+export const backendVpcId = backendVpc.id;
+export const backendPublicSubnetAId = backendPublicSubnetA.id;
+export const backendPublicSubnetBId = backendPublicSubnetB.id;
+export const backendAlbSecurityGroupId = backendAlbSecurityGroup.id;
+export const backendTaskSecurityGroupId = backendTaskSecurityGroup.id;
