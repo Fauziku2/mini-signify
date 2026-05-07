@@ -175,8 +175,8 @@ const githubActionsRole = new aws.iam.Role("githubActionsRole", {
 const githubActionsPolicy = new aws.iam.Policy("githubActionsPolicy", {
   name: "mini-signify-github-actions-policy",
   policy: pulumi
-    .all([backendRepository.arn, frontendBucket.arn])
-    .apply(([backendRepoArn, frontendBucketArn]) =>
+    .all([backendRepository.arn, frontendBucket.arn, frontendDistribution.arn])
+    .apply(([backendRepoArn, frontendBucketArn, frontendDistributionArn]) =>
       JSON.stringify({
         Version: "2012-10-17",
         Statement: [
@@ -215,6 +215,17 @@ const githubActionsPolicy = new aws.iam.Policy("githubActionsPolicy", {
             Action: ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
             Resource: `${frontendBucketArn}/*`,
           },
+          {
+            // Allow GitHub Actions to clear CloudFront cache after frontend deploy
+            Sid: "AllowFrontendCloudFrontInvalidation",
+            Effect: "Allow",
+            Action: [
+              "cloudfront:CreateInvalidation",
+              "cloudfront:GetInvalidation",
+              "cloudfront:ListInvalidations",
+            ],
+            Resource: frontendDistributionArn,
+        },
         ],
       }),
     ),

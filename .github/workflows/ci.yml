@@ -16,6 +16,7 @@ env:
   BACKEND_ECR_REGISTRY: 877269913405.dkr.ecr.ap-southeast-1.amazonaws.com
   BACKEND_ECR_REPOSITORY: mini-signify-backend
   FRONTEND_S3_BUCKET: mini-signify-frontend-877269913405-ap-southeast-1
+  FRONTEND_CLOUDFRONT_DISTRIBUTION_ID: E10DTOUM4T3XCD
 
 jobs:
   backend-build:
@@ -175,3 +176,9 @@ jobs:
 
       - name: Upload frontend dist to S3
         run: aws s3 sync dist s3://${{ env.FRONTEND_S3_BUCKET }} --delete
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ env.FRONTEND_CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
