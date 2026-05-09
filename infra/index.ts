@@ -271,6 +271,17 @@ const backendTaskExecutionRole = new aws.iam.Role(
   },
 );
 
+// Attach AWS managed policy so ECS can pull image from ECR and write logs
+const backendTaskExecutionRolePolicyAttachment =
+  new aws.iam.RolePolicyAttachment(
+    "miniSignifyBackendTaskExecutionRolePolicyAttachment",
+    {
+      role: backendTaskExecutionRole.name,
+      policyArn:
+        "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
+    },
+  );
+
 // VPC for backend ECS/ALB networking
 const backendVpc = new aws.ec2.Vpc("miniSignifyBackendVpc", {
   cidrBlock: "10.0.0.0/16",
@@ -419,6 +430,7 @@ export const githubActionsPolicyAttachmentId = githubActionsPolicyAttachment.id;
 export const backendClusterName = backendCluster.name;
 export const backendLogGroupName = backendLogGroup.name;
 export const backendTaskExecutionRoleArn = backendTaskExecutionRole.arn;
+export const backendTaskExecutionRolePolicyAttachmentId = backendTaskExecutionRolePolicyAttachment.id;
 export const backendVpcId = backendVpc.id;
 export const backendPublicSubnetAId = backendPublicSubnetA.id;
 export const backendPublicSubnetBId = backendPublicSubnetB.id;
