@@ -417,6 +417,52 @@ const backendTaskSecurityGroup = new aws.ec2.SecurityGroup(
   },
 );
 
+// Public Application Load Balancer for backend API
+const backendLoadBalancer = new aws.lb.LoadBalancer("miniSignifyBackendAlb", {
+  name: "mini-signify-backend-alb",
+  loadBalancerType: "application",
+  internal: false,
+  securityGroups: [backendAlbSecurityGroup.id],
+  subnets: [backendPublicSubnetA.id, backendPublicSubnetB.id],
+  tags: {
+    Name: "mini-signify-backend-alb",
+  },
+});
+
+// Target group for backend ECS tasks
+const backendTargetGroup = new aws.lb.TargetGroup("miniSignifyBackendTargetGroup", {
+  name: "mini-signify-backend-tg",
+  port: 3000,
+  protocol: "HTTP",
+  targetType: "ip",
+  vpcId: backendVpc.id,
+
+  healthCheck: {
+    enabled: true,
+    path: "/health",
+    protocol: "HTTP",
+    matcher: "200",
+  },
+
+  tags: {
+    Name: "mini-signify-backend-tg",
+  },
+});
+
+// HTTP listener for backend ALB
+const backendHttpListener = new aws.lb.Listener("miniSignifyBackendHttpListener", {
+  loadBalancerArn: backendLoadBalancer.arn,
+  port: 80,
+  protocol: "HTTP",
+
+  defaultActions: [
+    {
+      type: "forward",
+      targetGroupArn: backendTargetGroup.arn,
+    },
+  ],
+});
+
 // Useful Pulumi outputs
 export const backendRepositoryUrl = backendRepository.repositoryUrl;
 export const frontendBucketName = frontendBucket.bucket;
@@ -436,3 +482,7 @@ export const backendPublicSubnetAId = backendPublicSubnetA.id;
 export const backendPublicSubnetBId = backendPublicSubnetB.id;
 export const backendAlbSecurityGroupId = backendAlbSecurityGroup.id;
 export const backendTaskSecurityGroupId = backendTaskSecurityGroup.id;
+export const backendLoadBalancerDnsName = backendLoadBalancer.dnsName;
+export const backendLoadBalancerArn = backendLoadBalancer.arn;
+export const backendTargetGroupArn = backendTargetGroup.arn;
+export const backendHttpListenerArn = backendHttpListener.arn;
