@@ -6,6 +6,9 @@ const githubOwner = "Fauziku2";
 const githubRepoName = "mini-signify";
 const githubRepo = `${githubOwner}/${githubRepoName}`;
 
+const config = new pulumi.Config();
+const dbPassword = config.requireSecret("dbPassword");
+
 // ECR repo for backend Docker images
 const backendRepository = new aws.ecr.Repository("miniSignifyBackendRepo", {
   name: "mini-signify-backend",
@@ -282,6 +285,51 @@ const backendTaskExecutionRolePolicyAttachment =
     },
   );
 
+  // Existing S3 bucket where uploaded PDFs are stored.
+const documentsBucketName = "mini-signify-documents-dev-877269913405-ap-southeast-1-an";
+
+// IAM role used by the backend ECS task to access AWS services like S3.
+const backendTaskRole = new aws.iam.Role("miniSignifyBackendTaskRole", {
+  name: "mini-signify-backend-task-role",
+
+  // Allow ECS tasks to assume this role.
+  assumeRolePolicy: aws.iam.assumeRolePolicyForPrincipal({
+    Service: "ecs-tasks.amazonaws.com",
+  }),
+});
+
+// Allow backend ECS task to access the documents S3 bucket.
+const backendTaskS3Policy = new aws.iam.Policy("miniSignifyBackendTaskS3Policy", {
+  name: "mini-signify-backend-task-s3-policy",
+
+  policy: JSON.stringify({
+    Version: "2012-10-17",
+    Statement: [
+      {
+        Sid: "AllowListDocumentsBucket",
+        Effect: "Allow",
+        Action: ["s3:ListBucket"],
+        Resource: `arn:aws:s3:::${documentsBucketName}`,
+      },
+      {
+        Sid: "AllowReadWriteDeleteDocuments",
+        Effect: "Allow",
+        Action: ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+        Resource: `arn:aws:s3:::${documentsBucketName}/*`,
+      },
+    ],
+  }),
+});
+
+// Attach S3 access policy to the backend ECS task role.
+const backendTaskS3PolicyAttachment = new aws.iam.RolePolicyAttachment(
+  "miniSignifyBackendTaskS3PolicyAttachment",
+  {
+    role: backendTaskRole.name,
+    policyArn: backendTaskS3Policy.arn,
+  },
+);
+
 // VPC for backend ECS/ALB networking
 const backendVpc = new aws.ec2.Vpc("miniSignifyBackendVpc", {
   cidrBlock: "10.0.0.0/16",
@@ -314,6 +362,7 @@ const backendPublicSubnetA = new aws.ec2.Subnet("miniSignifyBackendPublicSubnetA
   },
 });
 
+// Public subnet in AZ 2
 const backendPublicSubnetB = new aws.ec2.Subnet("miniSignifyBackendPublicSubnetB", {
   vpcId: backendVpc.id,
   cidrBlock: "10.0.2.0/24",
@@ -323,6 +372,29 @@ const backendPublicSubnetB = new aws.ec2.Subnet("miniSignifyBackendPublicSubnetB
     Name: "mini-signify-backend-public-subnet-b",
   },
 });
+
+// Private subnet in AZ 1 for RDS
+const backendPrivateSubnetA = new aws.ec2.Subnet("miniSignifyBackendPrivateSubnetA", {
+  vpcId: backendVpc.id,
+  cidrBlock: "10.0.11.0/24",
+  availabilityZone: "ap-southeast-1a",
+  mapPublicIpOnLaunch: false,
+  tags: {
+    Name: "mini-signify-backend-private-subnet-a",
+  },
+});
+
+// Private subnet in AZ 2 for RDS
+const backendPrivateSubnetB = new aws.ec2.Subnet("miniSignifyBackendPrivateSubnetB", {
+  vpcId: backendVpc.id,
+  cidrBlock: "10.0.12.0/24",
+  availabilityZone: "ap-southeast-1b",
+  mapPublicIpOnLaunch: false,
+  tags: {
+    Name: "mini-signify-backend-private-subnet-b",
+  },
+});
+
 
 // Route table for public subnets
 const backendPublicRouteTable = new aws.ec2.RouteTable(
@@ -463,6 +535,173 @@ const backendHttpListener = new aws.lb.Listener("miniSignifyBackendHttpListener"
   ],
 });
 
+// Security group for RDS PostgreSQL
+const backendDbSecurityGroup = new aws.ec2.SecurityGroup(
+  "miniSignifyBackendDbSecurityGroup",
+  {
+    name: "mini-signify-backend-db-sg",
+    description: "Allow PostgreSQL traffic only from backend ECS tasks",
+    vpcId: backendVpc.id,
+    ingress: [
+      {
+        protocol: "tcp",
+        fromPort: 5432,
+        toPort: 5432,
+        securityGroups: [backendTaskSecurityGroup.id],
+      },
+    ],
+    egress: [
+      {
+        protocol: "-1",
+        fromPort: 0,
+        toPort: 0,
+        cidrBlocks: ["0.0.0.0/0"],
+      },
+    ],
+    tags: {
+      Name: "mini-signify-backend-db-sg",
+    },
+  },
+);
+
+// DB subnet group tells RDS which private subnets to use
+const backendDbSubnetGroup = new aws.rds.SubnetGroup(
+  "miniSignifyBackendDbSubnetGroup",
+  {
+    name: "mini-signify-backend-db-subnet-group",
+    subnetIds: [backendPrivateSubnetA.id, backendPrivateSubnetB.id],
+    tags: {
+      Name: "mini-signify-backend-db-subnet-group",
+    },
+  },
+);
+
+// PostgreSQL RDS database for backend metadata
+const backendDbInstance = new aws.rds.Instance("miniSignifyBackendDb", {
+  identifier: "mini-signify-backend-db",
+  engine: "postgres",
+  engineVersion: "16",
+  instanceClass: "db.t4g.micro",
+
+  allocatedStorage: 20,
+  storageType: "gp3",
+
+  dbName: "mini_signify",
+  username: "postgres",
+  password: dbPassword,
+
+  dbSubnetGroupName: backendDbSubnetGroup.name,
+  vpcSecurityGroupIds: [backendDbSecurityGroup.id],
+
+  publiclyAccessible: false,
+  skipFinalSnapshot: true,
+  deletionProtection: false,
+
+  tags: {
+    Name: "mini-signify-backend-db",
+  },
+});
+
+// Backend Docker image tag used by ECS task definition.
+const backendImageTag = config.get("backendImageTag") ?? "latest";
+
+// Backend Docker image URI from ECR.
+const backendImage = pulumi.interpolate`${backendRepository.repositoryUrl}:${backendImageTag}`;
+
+// ECS task definition for running the NestJS backend container.
+const backendTaskDefinition = new aws.ecs.TaskDefinition(
+  "miniSignifyBackendTaskDefinition",
+  {
+    family: "mini-signify-backend",
+    requiresCompatibilities: ["FARGATE"],
+    networkMode: "awsvpc",
+    cpu: "256",
+    memory: "512",
+
+    executionRoleArn: backendTaskExecutionRole.arn,
+    taskRoleArn: backendTaskRole.arn,
+
+    containerDefinitions: pulumi
+      .all([
+        backendImage,
+        backendDbInstance.address,
+        backendDbInstance.port,
+        backendDbInstance.dbName,
+        dbPassword,
+        backendLogGroup.name,
+      ])
+      .apply(
+        ([
+          image,
+          dbHost,
+          dbPort,
+          dbName,
+          dbPasswordValue,
+          logGroupName,
+        ]) =>
+          JSON.stringify([
+            {
+              name: "mini-signify-backend",
+              image,
+              essential: true,
+
+              portMappings: [
+                {
+                  containerPort: 3000,
+                  hostPort: 3000,
+                  protocol: "tcp",
+                },
+              ],
+
+              environment: [
+                {
+                  name: "PORT",
+                  value: "3000",
+                },
+                {
+                  name: "DB_HOST",
+                  value: dbHost,
+                },
+                {
+                  name: "DB_PORT",
+                  value: String(dbPort),
+                },
+                {
+                  name: "DB_USERNAME",
+                  value: "postgres",
+                },
+                {
+                  name: "DB_PASSWORD",
+                  value: dbPasswordValue,
+                },
+                {
+                  name: "DB_NAME",
+                  value: dbName,
+                },
+                {
+                  name: "AWS_REGION",
+                  value: "ap-southeast-1",
+                },
+                {
+                  name: "AWS_S3_BUCKET_NAME",
+                  value: documentsBucketName,
+                },
+              ],
+
+              logConfiguration: {
+                logDriver: "awslogs",
+                options: {
+                  "awslogs-group": logGroupName,
+                  "awslogs-region": "ap-southeast-1",
+                  "awslogs-stream-prefix": "backend",
+                },
+              },
+            },
+          ]),
+      ),
+  },
+);
+
 // Useful Pulumi outputs
 export const backendRepositoryUrl = backendRepository.repositoryUrl;
 export const frontendBucketName = frontendBucket.bucket;
@@ -477,6 +716,9 @@ export const backendClusterName = backendCluster.name;
 export const backendLogGroupName = backendLogGroup.name;
 export const backendTaskExecutionRoleArn = backendTaskExecutionRole.arn;
 export const backendTaskExecutionRolePolicyAttachmentId = backendTaskExecutionRolePolicyAttachment.id;
+export const backendTaskRoleArn = backendTaskRole.arn;
+export const backendTaskS3PolicyArn = backendTaskS3Policy.arn;
+export const backendTaskS3PolicyAttachmentId = backendTaskS3PolicyAttachment.id;
 export const backendVpcId = backendVpc.id;
 export const backendPublicSubnetAId = backendPublicSubnetA.id;
 export const backendPublicSubnetBId = backendPublicSubnetB.id;
@@ -486,3 +728,11 @@ export const backendLoadBalancerDnsName = backendLoadBalancer.dnsName;
 export const backendLoadBalancerArn = backendLoadBalancer.arn;
 export const backendTargetGroupArn = backendTargetGroup.arn;
 export const backendHttpListenerArn = backendHttpListener.arn;
+export const backendPrivateSubnetAId = backendPrivateSubnetA.id;
+export const backendPrivateSubnetBId = backendPrivateSubnetB.id;
+export const backendDbSecurityGroupId = backendDbSecurityGroup.id;
+export const backendDbSubnetGroupName = backendDbSubnetGroup.name;
+export const backendDbEndpoint = backendDbInstance.address;
+export const backendDbPort = backendDbInstance.port;
+export const backendDbName = backendDbInstance.dbName;
+export const backendTaskDefinitionArn = backendTaskDefinition.arn;

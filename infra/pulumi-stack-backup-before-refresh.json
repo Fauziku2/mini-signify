@@ -1,0 +1,3548 @@
+{
+    "version": 3,
+    "deployment": {
+        "manifest": {
+            "time": "2026-05-16T10:26:20.905011919Z",
+            "magic": "",
+            "version": ""
+        },
+        "secrets_providers": {
+            "type": "passphrase",
+            "state": {
+                "salt": "v1:nuAcJnUCemw=:v1:UGG2J2OoyUpLftcV:o87iLGKOxPuQUlA2f7wlgOGXrOfT/w=="
+            }
+        },
+        "resources": [
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "custom": false,
+                "type": "pulumi:pulumi:Stack",
+                "outputs": {
+                    "backendAlbSecurityGroupId": "sg-0d948887723e46bc9",
+                    "backendClusterName": "mini-signify-backend-cluster",
+                    "backendDbEndpoint": "mini-signify-backend-db.c5cuoo6ggruc.ap-southeast-1.rds.amazonaws.com",
+                    "backendDbName": "mini_signify",
+                    "backendDbPort": 5432,
+                    "backendDbSecurityGroupId": "sg-0e95c583c5e9c60b6",
+                    "backendDbSubnetGroupName": "mini-signify-backend-db-subnet-group",
+                    "backendHttpListenerArn": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:listener/app/mini-signify-backend-alb/e3b7d8c35066d170/108193b73a43c152",
+                    "backendLoadBalancerArn": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:loadbalancer/app/mini-signify-backend-alb/e3b7d8c35066d170",
+                    "backendLoadBalancerDnsName": "mini-signify-backend-alb-1318314844.ap-southeast-1.elb.amazonaws.com",
+                    "backendLogGroupName": "/ecs/mini-signify-backend",
+                    "backendPrivateSubnetAId": "subnet-0844a195142851a54",
+                    "backendPrivateSubnetBId": "subnet-0372a2942d865de94",
+                    "backendPublicSubnetAId": "subnet-01e17f38153da5c0a",
+                    "backendPublicSubnetBId": "subnet-02b5345239ce2b0cd",
+                    "backendRepositoryUrl": "877269913405.dkr.ecr.ap-southeast-1.amazonaws.com/mini-signify-backend",
+                    "backendTargetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:targetgroup/mini-signify-backend-tg/6d9bb3ad9bc5a31f",
+                    "backendTaskExecutionRoleArn": "arn:aws:iam::877269913405:role/mini-signify-backend-task-execution-role",
+                    "backendTaskExecutionRolePolicyAttachmentId": "mini-signify-backend-task-execution-role-20260509051326510400000001",
+                    "backendTaskRoleArn": "arn:aws:iam::877269913405:role/mini-signify-backend-task-role",
+                    "backendTaskS3PolicyArn": "arn:aws:iam::877269913405:policy/mini-signify-backend-task-s3-policy",
+                    "backendTaskS3PolicyAttachmentId": "mini-signify-backend-task-role-20260516092658077500000001",
+                    "backendTaskSecurityGroupId": "sg-088eec993da41b26a",
+                    "backendVpcId": "vpc-05246323bcf8c7e35",
+                    "frontendBucketName": "mini-signify-frontend-877269913405-ap-southeast-1",
+                    "frontendBucketPublicAccessBlockId": "mini-signify-frontend-877269913405-ap-southeast-1",
+                    "frontendDistributionDomainName": "d15ibboebwdjgj.cloudfront.net",
+                    "frontendDistributionId": "E10DTOUM4T3XCD",
+                    "githubActionsPolicyArn": "arn:aws:iam::877269913405:policy/mini-signify-github-actions-policy",
+                    "githubActionsPolicyAttachmentId": "mini-signify-github-actions-role-20260430102818315200000001",
+                    "githubActionsRoleArn": "arn:aws:iam::877269913405:role/mini-signify-github-actions-role",
+                    "githubOidcProviderArn": "arn:aws:iam::877269913405:oidc-provider/token.actions.githubusercontent.com"
+                },
+                "created": "2026-04-30T09:15:32.990352Z",
+                "modified": "2026-04-30T09:15:32.990352Z",
+                "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#37,19",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#37,19"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#601,38"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0",
+                "custom": true,
+                "id": "3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "type": "pulumi:providers:aws",
+                "inputs": {
+                    "__internal": {},
+                    "region": "ap-southeast-1",
+                    "skipCredentialsValidation": "false",
+                    "skipRegionValidation": "true",
+                    "version": "6.78.0"
+                },
+                "outputs": {
+                    "region": "ap-southeast-1",
+                    "skipCredentialsValidation": "false",
+                    "skipRegionValidation": "true",
+                    "version": "6.78.0"
+                },
+                "created": "2026-04-30T09:15:39.655435Z",
+                "modified": "2026-04-30T09:15:39.655435Z"
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::miniSignifyBackendTaskExecutionRole",
+                "custom": true,
+                "id": "mini-signify-backend-task-execution-role",
+                "type": "aws:iam/role:Role",
+                "inputs": {
+                    "__defaults": [
+                        "forceDetachPolicies",
+                        "maxSessionDuration",
+                        "path"
+                    ],
+                    "assumeRolePolicy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}",
+                    "forceDetachPolicies": false,
+                    "maxSessionDuration": 3600,
+                    "name": "mini-signify-backend-task-execution-role",
+                    "path": "/"
+                },
+                "outputs": {
+                    "arn": "arn:aws:iam::877269913405:role/mini-signify-backend-task-execution-role",
+                    "assumeRolePolicy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+                    "createDate": "2026-05-07T10:24:57Z",
+                    "description": "",
+                    "forceDetachPolicies": false,
+                    "id": "mini-signify-backend-task-execution-role",
+                    "inlinePolicies": [],
+                    "managedPolicyArns": [],
+                    "maxSessionDuration": 3600,
+                    "name": "mini-signify-backend-task-execution-role",
+                    "namePrefix": "",
+                    "path": "/",
+                    "permissionsBoundary": "",
+                    "uniqueId": "AROA4YQK4R46YVNMTGKIN"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "assumeRolePolicy": [],
+                    "name": []
+                },
+                "created": "2026-05-07T10:24:58.136782Z",
+                "modified": "2026-05-07T10:24:58.136782Z",
+                "sourcePosition": "project:///index.ts#258,34",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#258,34"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc",
+                "custom": true,
+                "id": "vpc-05246323bcf8c7e35",
+                "type": "aws:ec2/vpc:Vpc",
+                "inputs": {
+                    "__defaults": [],
+                    "cidrBlock": "10.0.0.0/16",
+                    "enableDnsHostnames": true,
+                    "enableDnsSupport": true,
+                    "tags": {
+                        "Name": "mini-signify-backend-vpc"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-vpc"
+                    }
+                },
+                "outputs": {
+                    "__meta": "{\"schema_version\":\"1\"}",
+                    "arn": "arn:aws:ec2:ap-southeast-1:877269913405:vpc/vpc-05246323bcf8c7e35",
+                    "assignGeneratedIpv6CidrBlock": false,
+                    "cidrBlock": "10.0.0.0/16",
+                    "defaultNetworkAclId": null,
+                    "defaultRouteTableId": "rtb-0aaa8cc8177b33253",
+                    "defaultSecurityGroupId": "sg-04997145294bc60de",
+                    "dhcpOptionsId": "dopt-9ae80bfc",
+                    "enableDnsHostnames": true,
+                    "enableDnsSupport": true,
+                    "enableNetworkAddressUsageMetrics": false,
+                    "id": "vpc-05246323bcf8c7e35",
+                    "instanceTenancy": "default",
+                    "ipv4IpamPoolId": null,
+                    "ipv4NetmaskLength": null,
+                    "ipv6AssociationId": "",
+                    "ipv6CidrBlock": "",
+                    "ipv6CidrBlockNetworkBorderGroup": "",
+                    "ipv6IpamPoolId": "",
+                    "ipv6NetmaskLength": 0,
+                    "mainRouteTableId": "rtb-0aaa8cc8177b33253",
+                    "ownerId": "877269913405",
+                    "tags": {
+                        "Name": "mini-signify-backend-vpc"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-vpc"
+                    }
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "cidrBlock": [],
+                    "enableDnsHostnames": [],
+                    "enableDnsSupport": [],
+                    "tags": []
+                },
+                "created": "2026-05-07T11:12:14.034959Z",
+                "modified": "2026-05-07T11:17:23.622335Z",
+                "sourcePosition": "project:///index.ts#334,20",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#334,20"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:iam/policy:Policy::miniSignifyBackendTaskS3Policy",
+                "custom": true,
+                "id": "arn:aws:iam::877269913405:policy/mini-signify-backend-task-s3-policy",
+                "type": "aws:iam/policy:Policy",
+                "inputs": {
+                    "__defaults": [
+                        "path"
+                    ],
+                    "name": "mini-signify-backend-task-s3-policy",
+                    "path": "/",
+                    "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"AllowListDocumentsBucket\",\"Effect\":\"Allow\",\"Action\":[\"s3:ListBucket\"],\"Resource\":\"arn:aws:s3:::mini-signify-documents-dev-877269913405-ap-southeast-1-an\"},{\"Sid\":\"AllowReadWriteDeleteDocuments\",\"Effect\":\"Allow\",\"Action\":[\"s3:GetObject\",\"s3:PutObject\",\"s3:DeleteObject\"],\"Resource\":\"arn:aws:s3:::mini-signify-documents-dev-877269913405-ap-southeast-1-an/*\"}]}"
+                },
+                "outputs": {
+                    "arn": "arn:aws:iam::877269913405:policy/mini-signify-backend-task-s3-policy",
+                    "attachmentCount": 0,
+                    "description": "",
+                    "id": "arn:aws:iam::877269913405:policy/mini-signify-backend-task-s3-policy",
+                    "name": "mini-signify-backend-task-s3-policy",
+                    "namePrefix": "",
+                    "path": "/",
+                    "policy": "{\"Statement\":[{\"Action\":[\"s3:ListBucket\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::mini-signify-documents-dev-877269913405-ap-southeast-1-an\",\"Sid\":\"AllowListDocumentsBucket\"},{\"Action\":[\"s3:GetObject\",\"s3:PutObject\",\"s3:DeleteObject\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::mini-signify-documents-dev-877269913405-ap-southeast-1-an/*\",\"Sid\":\"AllowReadWriteDeleteDocuments\"}],\"Version\":\"2012-10-17\"}",
+                    "policyId": "ANPA4YQK4R46ZJBMFZO7F"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "name": [],
+                    "policy": []
+                },
+                "created": "2026-05-16T09:26:56.767908Z",
+                "modified": "2026-05-16T09:26:56.767908Z",
+                "sourcePosition": "project:///index.ts#302,29",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#302,29"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:cloudwatch/logGroup:LogGroup::miniSignifyBackendLogGroup",
+                "custom": true,
+                "id": "/ecs/mini-signify-backend",
+                "type": "aws:cloudwatch/logGroup:LogGroup",
+                "inputs": {
+                    "__defaults": [
+                        "skipDestroy"
+                    ],
+                    "name": "/ecs/mini-signify-backend",
+                    "retentionInDays": 7,
+                    "skipDestroy": false
+                },
+                "outputs": {
+                    "arn": "arn:aws:logs:ap-southeast-1:877269913405:log-group:/ecs/mini-signify-backend",
+                    "id": "/ecs/mini-signify-backend",
+                    "kmsKeyId": "",
+                    "logGroupClass": "STANDARD",
+                    "name": "/ecs/mini-signify-backend",
+                    "namePrefix": "",
+                    "retentionInDays": 7,
+                    "skipDestroy": false
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "name": [],
+                    "retentionInDays": []
+                },
+                "created": "2026-05-07T10:24:56.316227Z",
+                "modified": "2026-05-07T10:24:56.316227Z",
+                "sourcePosition": "project:///index.ts#252,25",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#252,25"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::miniSignifyBackendTaskRole",
+                "custom": true,
+                "id": "mini-signify-backend-task-role",
+                "type": "aws:iam/role:Role",
+                "inputs": {
+                    "__defaults": [
+                        "forceDetachPolicies",
+                        "maxSessionDuration",
+                        "path"
+                    ],
+                    "assumeRolePolicy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"},\"Sid\":\"AllowAssumeRole\"}],\"Version\":\"2012-10-17\"}",
+                    "forceDetachPolicies": false,
+                    "maxSessionDuration": 3600,
+                    "name": "mini-signify-backend-task-role",
+                    "path": "/"
+                },
+                "outputs": {
+                    "arn": "arn:aws:iam::877269913405:role/mini-signify-backend-task-role",
+                    "assumeRolePolicy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ecs-tasks.amazonaws.com\"},\"Sid\":\"AllowAssumeRole\"}],\"Version\":\"2012-10-17\"}",
+                    "createDate": "2026-05-16T08:40:49Z",
+                    "description": "",
+                    "forceDetachPolicies": false,
+                    "id": "mini-signify-backend-task-role",
+                    "inlinePolicies": [],
+                    "managedPolicyArns": [],
+                    "maxSessionDuration": 3600,
+                    "name": "mini-signify-backend-task-role",
+                    "namePrefix": "",
+                    "path": "/",
+                    "permissionsBoundary": "",
+                    "uniqueId": "AROA4YQK4R46VBKC4JREQ"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "assumeRolePolicy": [],
+                    "name": []
+                },
+                "created": "2026-05-16T08:40:49.992905Z",
+                "modified": "2026-05-16T08:40:49.992905Z",
+                "sourcePosition": "project:///index.ts#292,25",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#292,25"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:s3/bucket:Bucket::miniSignifyFrontendBucket",
+                "custom": true,
+                "id": "mini-signify-frontend-877269913405-ap-southeast-1",
+                "type": "aws:s3/bucket:Bucket",
+                "inputs": {
+                    "__defaults": [
+                        "acl",
+                        "forceDestroy"
+                    ],
+                    "acl": "private",
+                    "bucket": "mini-signify-frontend-877269913405-ap-southeast-1",
+                    "forceDestroy": false
+                },
+                "outputs": {
+                    "accelerationStatus": "",
+                    "acl": "private",
+                    "arn": "arn:aws:s3:::mini-signify-frontend-877269913405-ap-southeast-1",
+                    "bucket": "mini-signify-frontend-877269913405-ap-southeast-1",
+                    "bucketDomainName": "mini-signify-frontend-877269913405-ap-southeast-1.s3.amazonaws.com",
+                    "bucketPrefix": null,
+                    "bucketRegionalDomainName": "mini-signify-frontend-877269913405-ap-southeast-1.s3.ap-southeast-1.amazonaws.com",
+                    "corsRules": [],
+                    "forceDestroy": false,
+                    "grants": [],
+                    "hostedZoneId": "Z3O0J2DXBE1FTB",
+                    "id": "mini-signify-frontend-877269913405-ap-southeast-1",
+                    "lifecycleRules": [],
+                    "loggings": [],
+                    "objectLockConfiguration": null,
+                    "policy": null,
+                    "region": "ap-southeast-1",
+                    "replicationConfiguration": null,
+                    "requestPayer": "BucketOwner",
+                    "serverSideEncryptionConfiguration": {
+                        "rule": {
+                            "applyServerSideEncryptionByDefault": {
+                                "kmsMasterKeyId": "",
+                                "sseAlgorithm": "AES256"
+                            },
+                            "bucketKeyEnabled": false
+                        }
+                    },
+                    "versioning": {
+                        "enabled": false,
+                        "mfaDelete": false
+                    },
+                    "website": null,
+                    "websiteDomain": null,
+                    "websiteEndpoint": null
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "bucket": []
+                },
+                "created": "2026-04-30T09:33:31.837176Z",
+                "modified": "2026-04-30T10:02:57.433108Z",
+                "sourcePosition": "project:///index.ts#22,24",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#22,24"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:iam/openIdConnectProvider:OpenIdConnectProvider::githubOidcProvider",
+                "custom": true,
+                "id": "arn:aws:iam::877269913405:oidc-provider/token.actions.githubusercontent.com",
+                "type": "aws:iam/openIdConnectProvider:OpenIdConnectProvider",
+                "inputs": {
+                    "__defaults": [],
+                    "clientIdLists": [
+                        "sts.amazonaws.com"
+                    ],
+                    "thumbprintLists": [
+                        "6938fd4d98bab03faadb97b34396831e3780aea1"
+                    ],
+                    "url": "https://token.actions.githubusercontent.com"
+                },
+                "outputs": {
+                    "arn": "arn:aws:iam::877269913405:oidc-provider/token.actions.githubusercontent.com",
+                    "clientIdLists": [
+                        "sts.amazonaws.com"
+                    ],
+                    "id": "arn:aws:iam::877269913405:oidc-provider/token.actions.githubusercontent.com",
+                    "thumbprintLists": [
+                        "6938fd4d98bab03faadb97b34396831e3780aea1"
+                    ],
+                    "url": "token.actions.githubusercontent.com"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "clientIdLists": [],
+                    "thumbprintLists": [],
+                    "url": []
+                },
+                "created": "2026-04-30T10:15:29.441389Z",
+                "modified": "2026-04-30T10:15:29.441389Z",
+                "sourcePosition": "project:///index.ts#141,28",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#141,28"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ecr/repository:Repository::miniSignifyBackendRepo",
+                "custom": true,
+                "id": "mini-signify-backend",
+                "type": "aws:ecr/repository:Repository",
+                "inputs": {
+                    "__defaults": [],
+                    "imageScanningConfiguration": {
+                        "__defaults": [],
+                        "scanOnPush": true
+                    },
+                    "imageTagMutability": "MUTABLE",
+                    "name": "mini-signify-backend"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"delete\":1200000000000}}",
+                    "arn": "arn:aws:ecr:ap-southeast-1:877269913405:repository/mini-signify-backend",
+                    "encryptionConfigurations": [
+                        {
+                            "encryptionType": "AES256",
+                            "kmsKey": ""
+                        }
+                    ],
+                    "forceDelete": null,
+                    "id": "mini-signify-backend",
+                    "imageScanningConfiguration": {
+                        "scanOnPush": true
+                    },
+                    "imageTagMutability": "MUTABLE",
+                    "name": "mini-signify-backend",
+                    "registryId": "877269913405",
+                    "repositoryUrl": "877269913405.dkr.ecr.ap-southeast-1.amazonaws.com/mini-signify-backend"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "imageScanningConfiguration": [],
+                    "imageTagMutability": [],
+                    "name": []
+                },
+                "created": "2026-04-30T09:15:41.477556Z",
+                "modified": "2026-04-30T09:19:34.033912Z",
+                "sourcePosition": "project:///index.ts#13,27",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#13,27"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ecs/cluster:Cluster::miniSignifyBackendCluster",
+                "custom": true,
+                "id": "arn:aws:ecs:ap-southeast-1:877269913405:cluster/mini-signify-backend-cluster",
+                "type": "aws:ecs/cluster:Cluster",
+                "inputs": {
+                    "__defaults": [],
+                    "name": "mini-signify-backend-cluster"
+                },
+                "outputs": {
+                    "arn": "arn:aws:ecs:ap-southeast-1:877269913405:cluster/mini-signify-backend-cluster",
+                    "configuration": null,
+                    "id": "arn:aws:ecs:ap-southeast-1:877269913405:cluster/mini-signify-backend-cluster",
+                    "name": "mini-signify-backend-cluster",
+                    "serviceConnectDefaults": null,
+                    "settings": [
+                        {
+                            "name": "containerInsights",
+                            "value": "disabled"
+                        }
+                    ]
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "name": []
+                },
+                "created": "2026-05-07T10:25:07.081114Z",
+                "modified": "2026-05-07T10:25:07.081114Z",
+                "sourcePosition": "project:///index.ts#247,24",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#247,24"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:cloudfront/originAccessControl:OriginAccessControl::miniSignifyFrontendOac",
+                "custom": true,
+                "id": "E1CRR7TNV8RL31",
+                "type": "aws:cloudfront/originAccessControl:OriginAccessControl",
+                "inputs": {
+                    "__defaults": [],
+                    "description": "OAC for mini-signify frontend S3 bucket",
+                    "name": "mini-signify-frontend-oac",
+                    "originAccessControlOriginType": "s3",
+                    "signingBehavior": "always",
+                    "signingProtocol": "sigv4"
+                },
+                "outputs": {
+                    "arn": "arn:aws:cloudfront::877269913405:origin-access-control/E1CRR7TNV8RL31",
+                    "description": "OAC for mini-signify frontend S3 bucket",
+                    "etag": "ETVPDKIKX0DER",
+                    "id": "E1CRR7TNV8RL31",
+                    "name": "mini-signify-frontend-oac",
+                    "originAccessControlOriginType": "s3",
+                    "signingBehavior": "always",
+                    "signingProtocol": "sigv4"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "description": [],
+                    "name": [],
+                    "originAccessControlOriginType": [],
+                    "signingBehavior": [],
+                    "signingProtocol": []
+                },
+                "created": "2026-05-05T15:51:44.855119Z",
+                "modified": "2026-05-05T15:51:44.855119Z",
+                "sourcePosition": "project:///index.ts#39,37",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#39,37"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:iam/rolePolicyAttachment:RolePolicyAttachment::miniSignifyBackendTaskExecutionRolePolicyAttachment",
+                "custom": true,
+                "id": "mini-signify-backend-task-execution-role-20260509051326510400000001",
+                "type": "aws:iam/rolePolicyAttachment:RolePolicyAttachment",
+                "inputs": {
+                    "__defaults": [],
+                    "policyArn": "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
+                    "role": "mini-signify-backend-task-execution-role"
+                },
+                "outputs": {
+                    "id": "mini-signify-backend-task-execution-role-20260509051326510400000001",
+                    "policyArn": "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
+                    "role": "mini-signify-backend-task-execution-role"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::miniSignifyBackendTaskExecutionRole"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "policyArn": [],
+                    "role": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::miniSignifyBackendTaskExecutionRole"
+                    ]
+                },
+                "created": "2026-05-09T05:13:26.851672Z",
+                "modified": "2026-05-09T05:13:26.851672Z",
+                "sourcePosition": "project:///index.ts#279,3",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#279,3"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPrivateSubnetB",
+                "custom": true,
+                "id": "subnet-0372a2942d865de94",
+                "type": "aws:ec2/subnet:Subnet",
+                "inputs": {
+                    "__defaults": [
+                        "assignIpv6AddressOnCreation",
+                        "enableDns64",
+                        "enableResourceNameDnsARecordOnLaunch",
+                        "enableResourceNameDnsAaaaRecordOnLaunch",
+                        "ipv6Native"
+                    ],
+                    "assignIpv6AddressOnCreation": false,
+                    "availabilityZone": "ap-southeast-1b",
+                    "cidrBlock": "10.0.12.0/24",
+                    "enableDns64": false,
+                    "enableResourceNameDnsARecordOnLaunch": false,
+                    "enableResourceNameDnsAaaaRecordOnLaunch": false,
+                    "ipv6Native": false,
+                    "mapPublicIpOnLaunch": false,
+                    "tags": {
+                        "Name": "mini-signify-backend-private-subnet-b"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-private-subnet-b"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":600000000000,\"delete\":1200000000000},\"schema_version\":\"1\"}",
+                    "arn": "arn:aws:ec2:ap-southeast-1:877269913405:subnet/subnet-0372a2942d865de94",
+                    "assignIpv6AddressOnCreation": false,
+                    "availabilityZone": "ap-southeast-1b",
+                    "availabilityZoneId": "apse1-az2",
+                    "cidrBlock": "10.0.12.0/24",
+                    "customerOwnedIpv4Pool": "",
+                    "enableDns64": false,
+                    "enableLniAtDeviceIndex": 0,
+                    "enableResourceNameDnsARecordOnLaunch": false,
+                    "enableResourceNameDnsAaaaRecordOnLaunch": false,
+                    "id": "subnet-0372a2942d865de94",
+                    "ipv6CidrBlock": "",
+                    "ipv6CidrBlockAssociationId": "",
+                    "ipv6Native": false,
+                    "mapCustomerOwnedIpOnLaunch": false,
+                    "mapPublicIpOnLaunch": false,
+                    "outpostArn": "",
+                    "ownerId": "877269913405",
+                    "privateDnsHostnameTypeOnLaunch": "ip-name",
+                    "tags": {
+                        "Name": "mini-signify-backend-private-subnet-b"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-private-subnet-b"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "availabilityZone": [],
+                    "cidrBlock": [],
+                    "mapPublicIpOnLaunch": [],
+                    "tags": [],
+                    "vpcId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                    ]
+                },
+                "created": "2026-05-14T16:01:32.100682Z",
+                "modified": "2026-05-14T16:01:32.100682Z",
+                "sourcePosition": "project:///index.ts#388,31",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#388,31"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPublicSubnetB",
+                "custom": true,
+                "id": "subnet-02b5345239ce2b0cd",
+                "type": "aws:ec2/subnet:Subnet",
+                "inputs": {
+                    "__defaults": [
+                        "assignIpv6AddressOnCreation",
+                        "enableDns64",
+                        "enableResourceNameDnsARecordOnLaunch",
+                        "enableResourceNameDnsAaaaRecordOnLaunch",
+                        "ipv6Native"
+                    ],
+                    "assignIpv6AddressOnCreation": false,
+                    "availabilityZone": "ap-southeast-1b",
+                    "cidrBlock": "10.0.2.0/24",
+                    "enableDns64": false,
+                    "enableResourceNameDnsARecordOnLaunch": false,
+                    "enableResourceNameDnsAaaaRecordOnLaunch": false,
+                    "ipv6Native": false,
+                    "mapPublicIpOnLaunch": true,
+                    "tags": {
+                        "Name": "mini-signify-backend-public-subnet-b"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-public-subnet-b"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":600000000000,\"delete\":1200000000000},\"schema_version\":\"1\"}",
+                    "arn": "arn:aws:ec2:ap-southeast-1:877269913405:subnet/subnet-02b5345239ce2b0cd",
+                    "assignIpv6AddressOnCreation": false,
+                    "availabilityZone": "ap-southeast-1b",
+                    "availabilityZoneId": "apse1-az2",
+                    "cidrBlock": "10.0.2.0/24",
+                    "customerOwnedIpv4Pool": "",
+                    "enableDns64": false,
+                    "enableLniAtDeviceIndex": 0,
+                    "enableResourceNameDnsARecordOnLaunch": false,
+                    "enableResourceNameDnsAaaaRecordOnLaunch": false,
+                    "id": "subnet-02b5345239ce2b0cd",
+                    "ipv6CidrBlock": "",
+                    "ipv6CidrBlockAssociationId": "",
+                    "ipv6Native": false,
+                    "mapCustomerOwnedIpOnLaunch": false,
+                    "mapPublicIpOnLaunch": true,
+                    "outpostArn": "",
+                    "ownerId": "877269913405",
+                    "privateDnsHostnameTypeOnLaunch": "ip-name",
+                    "tags": {
+                        "Name": "mini-signify-backend-public-subnet-b"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-public-subnet-b"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "availabilityZone": [],
+                    "cidrBlock": [],
+                    "mapPublicIpOnLaunch": [],
+                    "tags": [],
+                    "vpcId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                    ]
+                },
+                "created": "2026-05-07T11:17:35.44179Z",
+                "modified": "2026-05-07T11:17:35.44179Z",
+                "sourcePosition": "project:///index.ts#366,30",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#366,30"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ec2/internetGateway:InternetGateway::miniSignifyBackendInternetGateway",
+                "custom": true,
+                "id": "igw-09f5423067684ebd0",
+                "type": "aws:ec2/internetGateway:InternetGateway",
+                "inputs": {
+                    "__defaults": [],
+                    "tags": {
+                        "Name": "mini-signify-backend-igw"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-igw"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":1200000000000,\"delete\":1200000000000,\"update\":1200000000000}}",
+                    "arn": "arn:aws:ec2:ap-southeast-1:877269913405:internet-gateway/igw-09f5423067684ebd0",
+                    "id": "igw-09f5423067684ebd0",
+                    "ownerId": "877269913405",
+                    "tags": {
+                        "Name": "mini-signify-backend-igw"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-igw"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "tags": [],
+                    "vpcId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                    ]
+                },
+                "created": "2026-05-07T11:17:25.037771Z",
+                "modified": "2026-05-07T11:17:25.037771Z",
+                "sourcePosition": "project:///index.ts#344,32",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#344,32"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPublicSubnetA",
+                "custom": true,
+                "id": "subnet-01e17f38153da5c0a",
+                "type": "aws:ec2/subnet:Subnet",
+                "inputs": {
+                    "__defaults": [
+                        "assignIpv6AddressOnCreation",
+                        "enableDns64",
+                        "enableResourceNameDnsARecordOnLaunch",
+                        "enableResourceNameDnsAaaaRecordOnLaunch",
+                        "ipv6Native"
+                    ],
+                    "assignIpv6AddressOnCreation": false,
+                    "availabilityZone": "ap-southeast-1a",
+                    "cidrBlock": "10.0.1.0/24",
+                    "enableDns64": false,
+                    "enableResourceNameDnsARecordOnLaunch": false,
+                    "enableResourceNameDnsAaaaRecordOnLaunch": false,
+                    "ipv6Native": false,
+                    "mapPublicIpOnLaunch": true,
+                    "tags": {
+                        "Name": "mini-signify-backend-public-subnet-a"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-public-subnet-a"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":600000000000,\"delete\":1200000000000},\"schema_version\":\"1\"}",
+                    "arn": "arn:aws:ec2:ap-southeast-1:877269913405:subnet/subnet-01e17f38153da5c0a",
+                    "assignIpv6AddressOnCreation": false,
+                    "availabilityZone": "ap-southeast-1a",
+                    "availabilityZoneId": "apse1-az1",
+                    "cidrBlock": "10.0.1.0/24",
+                    "customerOwnedIpv4Pool": "",
+                    "enableDns64": false,
+                    "enableLniAtDeviceIndex": 0,
+                    "enableResourceNameDnsARecordOnLaunch": false,
+                    "enableResourceNameDnsAaaaRecordOnLaunch": false,
+                    "id": "subnet-01e17f38153da5c0a",
+                    "ipv6CidrBlock": "",
+                    "ipv6CidrBlockAssociationId": "",
+                    "ipv6Native": false,
+                    "mapCustomerOwnedIpOnLaunch": false,
+                    "mapPublicIpOnLaunch": true,
+                    "outpostArn": "",
+                    "ownerId": "877269913405",
+                    "privateDnsHostnameTypeOnLaunch": "ip-name",
+                    "tags": {
+                        "Name": "mini-signify-backend-public-subnet-a"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-public-subnet-a"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "availabilityZone": [],
+                    "cidrBlock": [],
+                    "mapPublicIpOnLaunch": [],
+                    "tags": [],
+                    "vpcId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                    ]
+                },
+                "created": "2026-05-07T11:17:35.440484Z",
+                "modified": "2026-05-07T11:17:35.440484Z",
+                "sourcePosition": "project:///index.ts#355,30",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#355,30"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ec2/securityGroup:SecurityGroup::miniSignifyBackendAlbSecurityGroup",
+                "custom": true,
+                "id": "sg-0d948887723e46bc9",
+                "type": "aws:ec2/securityGroup:SecurityGroup",
+                "inputs": {
+                    "__defaults": [
+                        "revokeRulesOnDelete"
+                    ],
+                    "description": "Allow public HTTP/HTTPS traffic to backend ALB",
+                    "egress": [
+                        {
+                            "__defaults": [
+                                "description",
+                                "self"
+                            ],
+                            "cidrBlocks": [
+                                "0.0.0.0/0"
+                            ],
+                            "description": "",
+                            "fromPort": 0,
+                            "protocol": "-1",
+                            "self": false,
+                            "toPort": 0
+                        }
+                    ],
+                    "ingress": [
+                        {
+                            "__defaults": [
+                                "description",
+                                "self"
+                            ],
+                            "cidrBlocks": [
+                                "0.0.0.0/0"
+                            ],
+                            "description": "",
+                            "fromPort": 80,
+                            "protocol": "tcp",
+                            "self": false,
+                            "toPort": 80
+                        },
+                        {
+                            "__defaults": [
+                                "description",
+                                "self"
+                            ],
+                            "cidrBlocks": [
+                                "0.0.0.0/0"
+                            ],
+                            "description": "",
+                            "fromPort": 443,
+                            "protocol": "tcp",
+                            "self": false,
+                            "toPort": 443
+                        }
+                    ],
+                    "name": "mini-signify-backend-alb-sg",
+                    "revokeRulesOnDelete": false,
+                    "tags": {
+                        "Name": "mini-signify-backend-alb-sg"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-alb-sg"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":600000000000,\"delete\":900000000000},\"schema_version\":\"1\"}",
+                    "arn": "arn:aws:ec2:ap-southeast-1:877269913405:security-group/sg-0d948887723e46bc9",
+                    "description": "Allow public HTTP/HTTPS traffic to backend ALB",
+                    "egress": [
+                        {
+                            "cidrBlocks": [
+                                "0.0.0.0/0"
+                            ],
+                            "description": "",
+                            "fromPort": 0,
+                            "ipv6CidrBlocks": [],
+                            "prefixListIds": [],
+                            "protocol": "-1",
+                            "securityGroups": [],
+                            "self": false,
+                            "toPort": 0
+                        }
+                    ],
+                    "id": "sg-0d948887723e46bc9",
+                    "ingress": [
+                        {
+                            "cidrBlocks": [
+                                "0.0.0.0/0"
+                            ],
+                            "description": "",
+                            "fromPort": 443,
+                            "ipv6CidrBlocks": [],
+                            "prefixListIds": [],
+                            "protocol": "tcp",
+                            "securityGroups": [],
+                            "self": false,
+                            "toPort": 443
+                        },
+                        {
+                            "cidrBlocks": [
+                                "0.0.0.0/0"
+                            ],
+                            "description": "",
+                            "fromPort": 80,
+                            "ipv6CidrBlocks": [],
+                            "prefixListIds": [],
+                            "protocol": "tcp",
+                            "securityGroups": [],
+                            "self": false,
+                            "toPort": 80
+                        }
+                    ],
+                    "name": "mini-signify-backend-alb-sg",
+                    "namePrefix": "",
+                    "ownerId": "877269913405",
+                    "revokeRulesOnDelete": false,
+                    "tags": {
+                        "Name": "mini-signify-backend-alb-sg"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-alb-sg"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "description": [],
+                    "egress": [],
+                    "ingress": [],
+                    "name": [],
+                    "tags": [],
+                    "vpcId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                    ]
+                },
+                "created": "2026-05-07T11:17:26.982328Z",
+                "modified": "2026-05-07T11:17:26.982328Z",
+                "sourcePosition": "project:///index.ts#429,33",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#429,33"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:lb/targetGroup:TargetGroup::miniSignifyBackendTargetGroup",
+                "custom": true,
+                "id": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:targetgroup/mini-signify-backend-tg/6d9bb3ad9bc5a31f",
+                "type": "aws:lb/targetGroup:TargetGroup",
+                "inputs": {
+                    "__defaults": [
+                        "lambdaMultiValueHeadersEnabled",
+                        "proxyProtocolV2",
+                        "slowStart"
+                    ],
+                    "healthCheck": {
+                        "__defaults": [
+                            "healthyThreshold",
+                            "interval",
+                            "port",
+                            "unhealthyThreshold"
+                        ],
+                        "enabled": true,
+                        "healthyThreshold": 3,
+                        "interval": 30,
+                        "matcher": "200",
+                        "path": "/health",
+                        "port": "traffic-port",
+                        "protocol": "HTTP",
+                        "unhealthyThreshold": 3
+                    },
+                    "lambdaMultiValueHeadersEnabled": false,
+                    "name": "mini-signify-backend-tg",
+                    "port": 3000,
+                    "protocol": "HTTP",
+                    "proxyProtocolV2": false,
+                    "slowStart": 0,
+                    "tags": {
+                        "Name": "mini-signify-backend-tg"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-tg"
+                    },
+                    "targetType": "ip",
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "outputs": {
+                    "arn": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:targetgroup/mini-signify-backend-tg/6d9bb3ad9bc5a31f",
+                    "arnSuffix": "targetgroup/mini-signify-backend-tg/6d9bb3ad9bc5a31f",
+                    "connectionTermination": null,
+                    "deregistrationDelay": 300,
+                    "healthCheck": {
+                        "enabled": true,
+                        "healthyThreshold": 3,
+                        "interval": 30,
+                        "matcher": "200",
+                        "path": "/health",
+                        "port": "traffic-port",
+                        "protocol": "HTTP",
+                        "timeout": 5,
+                        "unhealthyThreshold": 3
+                    },
+                    "id": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:targetgroup/mini-signify-backend-tg/6d9bb3ad9bc5a31f",
+                    "ipAddressType": "ipv4",
+                    "lambdaMultiValueHeadersEnabled": false,
+                    "loadBalancerArns": [],
+                    "loadBalancingAlgorithmType": "round_robin",
+                    "loadBalancingAnomalyMitigation": "off",
+                    "loadBalancingCrossZoneEnabled": "use_load_balancer_configuration",
+                    "name": "mini-signify-backend-tg",
+                    "namePrefix": "",
+                    "port": 3000,
+                    "preserveClientIp": null,
+                    "protocol": "HTTP",
+                    "protocolVersion": "HTTP1",
+                    "proxyProtocolV2": false,
+                    "slowStart": 0,
+                    "stickiness": {
+                        "cookieDuration": 86400,
+                        "cookieName": "",
+                        "enabled": false,
+                        "type": "lb_cookie"
+                    },
+                    "tags": {
+                        "Name": "mini-signify-backend-tg"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-tg"
+                    },
+                    "targetFailovers": [],
+                    "targetGroupHealth": {
+                        "dnsFailover": {
+                            "minimumHealthyTargetsCount": "1",
+                            "minimumHealthyTargetsPercentage": "off"
+                        },
+                        "unhealthyStateRouting": {
+                            "minimumHealthyTargetsCount": 1,
+                            "minimumHealthyTargetsPercentage": "off"
+                        }
+                    },
+                    "targetHealthStates": [],
+                    "targetType": "ip",
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "healthCheck": [],
+                    "name": [],
+                    "port": [],
+                    "protocol": [],
+                    "tags": [],
+                    "targetType": [],
+                    "vpcId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                    ]
+                },
+                "created": "2026-05-09T08:44:22.962801Z",
+                "modified": "2026-05-09T08:51:08.155023Z",
+                "sourcePosition": "project:///index.ts#505,28",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#505,28"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPrivateSubnetA",
+                "custom": true,
+                "id": "subnet-0844a195142851a54",
+                "type": "aws:ec2/subnet:Subnet",
+                "inputs": {
+                    "__defaults": [
+                        "assignIpv6AddressOnCreation",
+                        "enableDns64",
+                        "enableResourceNameDnsARecordOnLaunch",
+                        "enableResourceNameDnsAaaaRecordOnLaunch",
+                        "ipv6Native"
+                    ],
+                    "assignIpv6AddressOnCreation": false,
+                    "availabilityZone": "ap-southeast-1a",
+                    "cidrBlock": "10.0.11.0/24",
+                    "enableDns64": false,
+                    "enableResourceNameDnsARecordOnLaunch": false,
+                    "enableResourceNameDnsAaaaRecordOnLaunch": false,
+                    "ipv6Native": false,
+                    "mapPublicIpOnLaunch": false,
+                    "tags": {
+                        "Name": "mini-signify-backend-private-subnet-a"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-private-subnet-a"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":600000000000,\"delete\":1200000000000},\"schema_version\":\"1\"}",
+                    "arn": "arn:aws:ec2:ap-southeast-1:877269913405:subnet/subnet-0844a195142851a54",
+                    "assignIpv6AddressOnCreation": false,
+                    "availabilityZone": "ap-southeast-1a",
+                    "availabilityZoneId": "apse1-az1",
+                    "cidrBlock": "10.0.11.0/24",
+                    "customerOwnedIpv4Pool": "",
+                    "enableDns64": false,
+                    "enableLniAtDeviceIndex": 0,
+                    "enableResourceNameDnsARecordOnLaunch": false,
+                    "enableResourceNameDnsAaaaRecordOnLaunch": false,
+                    "id": "subnet-0844a195142851a54",
+                    "ipv6CidrBlock": "",
+                    "ipv6CidrBlockAssociationId": "",
+                    "ipv6Native": false,
+                    "mapCustomerOwnedIpOnLaunch": false,
+                    "mapPublicIpOnLaunch": false,
+                    "outpostArn": "",
+                    "ownerId": "877269913405",
+                    "privateDnsHostnameTypeOnLaunch": "ip-name",
+                    "tags": {
+                        "Name": "mini-signify-backend-private-subnet-a"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-private-subnet-a"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "availabilityZone": [],
+                    "cidrBlock": [],
+                    "mapPublicIpOnLaunch": [],
+                    "tags": [],
+                    "vpcId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                    ]
+                },
+                "created": "2026-05-14T16:01:32.070475Z",
+                "modified": "2026-05-14T16:01:32.070475Z",
+                "sourcePosition": "project:///index.ts#377,31",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#377,31"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:iam/rolePolicyAttachment:RolePolicyAttachment::miniSignifyBackendTaskS3PolicyAttachment",
+                "custom": true,
+                "id": "mini-signify-backend-task-role-20260516092658077500000001",
+                "type": "aws:iam/rolePolicyAttachment:RolePolicyAttachment",
+                "inputs": {
+                    "__defaults": [],
+                    "policyArn": "arn:aws:iam::877269913405:policy/mini-signify-backend-task-s3-policy",
+                    "role": "mini-signify-backend-task-role"
+                },
+                "outputs": {
+                    "id": "mini-signify-backend-task-role-20260516092658077500000001",
+                    "policyArn": "arn:aws:iam::877269913405:policy/mini-signify-backend-task-s3-policy",
+                    "role": "mini-signify-backend-task-role"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:iam/policy:Policy::miniSignifyBackendTaskS3Policy",
+                    "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::miniSignifyBackendTaskRole"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "policyArn": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:iam/policy:Policy::miniSignifyBackendTaskS3Policy"
+                    ],
+                    "role": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::miniSignifyBackendTaskRole"
+                    ]
+                },
+                "created": "2026-05-16T09:26:58.337878Z",
+                "modified": "2026-05-16T09:26:58.337878Z",
+                "sourcePosition": "project:///index.ts#325,39",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#325,39"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:s3/bucketPublicAccessBlock:BucketPublicAccessBlock::miniSignifyFrontendBucketPublicAccessBlock",
+                "custom": true,
+                "id": "mini-signify-frontend-877269913405-ap-southeast-1",
+                "type": "aws:s3/bucketPublicAccessBlock:BucketPublicAccessBlock",
+                "inputs": {
+                    "__defaults": [],
+                    "blockPublicAcls": true,
+                    "blockPublicPolicy": true,
+                    "bucket": "mini-signify-frontend-877269913405-ap-southeast-1",
+                    "ignorePublicAcls": true,
+                    "restrictPublicBuckets": true
+                },
+                "outputs": {
+                    "blockPublicAcls": true,
+                    "blockPublicPolicy": true,
+                    "bucket": "mini-signify-frontend-877269913405-ap-southeast-1",
+                    "id": "mini-signify-frontend-877269913405-ap-southeast-1",
+                    "ignorePublicAcls": true,
+                    "restrictPublicBuckets": true
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:s3/bucket:Bucket::miniSignifyFrontendBucket"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "blockPublicAcls": [],
+                    "blockPublicPolicy": [],
+                    "bucket": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:s3/bucket:Bucket::miniSignifyFrontendBucket"
+                    ],
+                    "ignorePublicAcls": [],
+                    "restrictPublicBuckets": []
+                },
+                "created": "2026-04-30T10:10:14.218413Z",
+                "modified": "2026-04-30T10:10:14.218413Z",
+                "sourcePosition": "project:///index.ts#27,41",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#27,41"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::githubActionsRole",
+                "custom": true,
+                "id": "mini-signify-github-actions-role",
+                "type": "aws:iam/role:Role",
+                "inputs": {
+                    "__defaults": [
+                        "forceDetachPolicies",
+                        "maxSessionDuration",
+                        "path"
+                    ],
+                    "assumeRolePolicy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Federated\":\"arn:aws:iam::877269913405:oidc-provider/token.actions.githubusercontent.com\"},\"Action\":\"sts:AssumeRoleWithWebIdentity\",\"Condition\":{\"StringEquals\":{\"token.actions.githubusercontent.com:aud\":\"sts.amazonaws.com\"},\"StringLike\":{\"token.actions.githubusercontent.com:sub\":\"repo:Fauziku2/mini-signify:*\"}}}]}",
+                    "forceDetachPolicies": false,
+                    "maxSessionDuration": 3600,
+                    "name": "mini-signify-github-actions-role",
+                    "path": "/"
+                },
+                "outputs": {
+                    "arn": "arn:aws:iam::877269913405:role/mini-signify-github-actions-role",
+                    "assumeRolePolicy": "{\"Statement\":[{\"Action\":\"sts:AssumeRoleWithWebIdentity\",\"Condition\":{\"StringEquals\":{\"token.actions.githubusercontent.com:aud\":\"sts.amazonaws.com\"},\"StringLike\":{\"token.actions.githubusercontent.com:sub\":\"repo:Fauziku2/mini-signify:*\"}},\"Effect\":\"Allow\",\"Principal\":{\"Federated\":\"arn:aws:iam::877269913405:oidc-provider/token.actions.githubusercontent.com\"}}],\"Version\":\"2012-10-17\"}",
+                    "createDate": "2026-04-30T10:20:54Z",
+                    "description": "",
+                    "forceDetachPolicies": false,
+                    "id": "mini-signify-github-actions-role",
+                    "inlinePolicies": [],
+                    "managedPolicyArns": [],
+                    "maxSessionDuration": 3600,
+                    "name": "mini-signify-github-actions-role",
+                    "namePrefix": "",
+                    "path": "/",
+                    "permissionsBoundary": "",
+                    "uniqueId": "AROA4YQK4R464Y6ZRVTQF"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:iam/openIdConnectProvider:OpenIdConnectProvider::githubOidcProvider"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "assumeRolePolicy": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:iam/openIdConnectProvider:OpenIdConnectProvider::githubOidcProvider"
+                    ],
+                    "name": []
+                },
+                "created": "2026-04-30T10:20:54.980374Z",
+                "modified": "2026-04-30T10:24:36.534582Z",
+                "sourcePosition": "project:///index.ts#151,27",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#151,27"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:cloudfront/distribution:Distribution::miniSignifyFrontendDistribution",
+                "custom": true,
+                "id": "E10DTOUM4T3XCD",
+                "type": "aws:cloudfront/distribution:Distribution",
+                "inputs": {
+                    "__defaults": [
+                        "httpVersion",
+                        "isIpv6Enabled",
+                        "priceClass",
+                        "retainOnDelete",
+                        "staging",
+                        "waitForDeployment"
+                    ],
+                    "customErrorResponses": [
+                        {
+                            "__defaults": [],
+                            "errorCode": 403,
+                            "responseCode": 200,
+                            "responsePagePath": "/index.html"
+                        },
+                        {
+                            "__defaults": [],
+                            "errorCode": 404,
+                            "responseCode": 200,
+                            "responsePagePath": "/index.html"
+                        }
+                    ],
+                    "defaultCacheBehavior": {
+                        "__defaults": [
+                            "compress",
+                            "minTtl"
+                        ],
+                        "allowedMethods": [
+                            "GET",
+                            "HEAD",
+                            "OPTIONS"
+                        ],
+                        "cachedMethods": [
+                            "GET",
+                            "HEAD"
+                        ],
+                        "compress": false,
+                        "forwardedValues": {
+                            "__defaults": [],
+                            "cookies": {
+                                "__defaults": [],
+                                "forward": "none"
+                            },
+                            "queryString": false
+                        },
+                        "minTtl": 0,
+                        "targetOriginId": "mini-signify-frontend-s3-origin",
+                        "viewerProtocolPolicy": "redirect-to-https"
+                    },
+                    "defaultRootObject": "index.html",
+                    "enabled": true,
+                    "httpVersion": "http2",
+                    "isIpv6Enabled": false,
+                    "origins": [
+                        {
+                            "__defaults": [
+                                "connectionAttempts",
+                                "connectionTimeout",
+                                "originPath"
+                            ],
+                            "connectionAttempts": 3,
+                            "connectionTimeout": 10,
+                            "domainName": "mini-signify-frontend-877269913405-ap-southeast-1.s3.ap-southeast-1.amazonaws.com",
+                            "originAccessControlId": "E1CRR7TNV8RL31",
+                            "originId": "mini-signify-frontend-s3-origin",
+                            "originPath": "",
+                            "s3OriginConfig": {
+                                "__defaults": [],
+                                "originAccessIdentity": ""
+                            }
+                        }
+                    ],
+                    "priceClass": "PriceClass_All",
+                    "restrictions": {
+                        "__defaults": [],
+                        "geoRestriction": {
+                            "__defaults": [],
+                            "restrictionType": "none"
+                        }
+                    },
+                    "retainOnDelete": false,
+                    "staging": false,
+                    "viewerCertificate": {
+                        "__defaults": [
+                            "minimumProtocolVersion"
+                        ],
+                        "cloudfrontDefaultCertificate": true,
+                        "minimumProtocolVersion": "TLSv1"
+                    },
+                    "waitForDeployment": true
+                },
+                "outputs": {
+                    "__meta": "{\"schema_version\":\"1\"}",
+                    "aliases": null,
+                    "arn": "arn:aws:cloudfront::877269913405:distribution/E10DTOUM4T3XCD",
+                    "callerReference": "terraform-20260505155145607800000001",
+                    "comment": null,
+                    "continuousDeploymentPolicyId": "",
+                    "customErrorResponses": [
+                        {
+                            "errorCachingMinTtl": null,
+                            "errorCode": 403,
+                            "responseCode": 200,
+                            "responsePagePath": "/index.html"
+                        },
+                        {
+                            "errorCachingMinTtl": null,
+                            "errorCode": 404,
+                            "responseCode": 200,
+                            "responsePagePath": "/index.html"
+                        }
+                    ],
+                    "defaultCacheBehavior": {
+                        "allowedMethods": [
+                            "GET",
+                            "HEAD",
+                            "OPTIONS"
+                        ],
+                        "cachePolicyId": "",
+                        "cachedMethods": [
+                            "GET",
+                            "HEAD"
+                        ],
+                        "compress": false,
+                        "defaultTtl": 0,
+                        "fieldLevelEncryptionId": "",
+                        "forwardedValues": {
+                            "cookies": {
+                                "forward": "none",
+                                "whitelistedNames": []
+                            },
+                            "headers": [],
+                            "queryString": false,
+                            "queryStringCacheKeys": []
+                        },
+                        "functionAssociations": [],
+                        "grpcConfig": {
+                            "enabled": false
+                        },
+                        "lambdaFunctionAssociations": [],
+                        "maxTtl": 0,
+                        "minTtl": 0,
+                        "originRequestPolicyId": "",
+                        "realtimeLogConfigArn": "",
+                        "responseHeadersPolicyId": "",
+                        "smoothStreaming": false,
+                        "targetOriginId": "mini-signify-frontend-s3-origin",
+                        "trustedKeyGroups": [],
+                        "trustedSigners": [],
+                        "viewerProtocolPolicy": "redirect-to-https"
+                    },
+                    "defaultRootObject": "index.html",
+                    "domainName": "d15ibboebwdjgj.cloudfront.net",
+                    "enabled": true,
+                    "etag": "E23ZP02F085DFQ",
+                    "hostedZoneId": "Z2FDTNDATAQYW2",
+                    "httpVersion": "http2",
+                    "id": "E10DTOUM4T3XCD",
+                    "inProgressValidationBatches": 0,
+                    "isIpv6Enabled": false,
+                    "lastModifiedTime": "2026-05-05 15:51:45.848 +0000 UTC",
+                    "loggingConfig": null,
+                    "orderedCacheBehaviors": [],
+                    "originGroups": [],
+                    "origins": [
+                        {
+                            "connectionAttempts": 3,
+                            "connectionTimeout": 10,
+                            "customHeaders": [],
+                            "customOriginConfig": null,
+                            "domainName": "mini-signify-frontend-877269913405-ap-southeast-1.s3.ap-southeast-1.amazonaws.com",
+                            "originAccessControlId": "E1CRR7TNV8RL31",
+                            "originId": "mini-signify-frontend-s3-origin",
+                            "originPath": "",
+                            "originShield": null,
+                            "s3OriginConfig": {
+                                "originAccessIdentity": ""
+                            },
+                            "vpcOriginConfig": null
+                        }
+                    ],
+                    "priceClass": "PriceClass_All",
+                    "restrictions": {
+                        "geoRestriction": {
+                            "locations": [],
+                            "restrictionType": "none"
+                        }
+                    },
+                    "retainOnDelete": false,
+                    "staging": false,
+                    "status": "Deployed",
+                    "trustedKeyGroups": [
+                        {
+                            "enabled": false,
+                            "items": []
+                        }
+                    ],
+                    "trustedSigners": [
+                        {
+                            "enabled": false,
+                            "items": []
+                        }
+                    ],
+                    "viewerCertificate": {
+                        "acmCertificateArn": "",
+                        "cloudfrontDefaultCertificate": true,
+                        "iamCertificateId": "",
+                        "minimumProtocolVersion": "TLSv1",
+                        "sslSupportMethod": ""
+                    },
+                    "waitForDeployment": true,
+                    "webAclId": ""
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:cloudfront/originAccessControl:OriginAccessControl::miniSignifyFrontendOac",
+                    "urn:pulumi:dev::mini-signify-infra::aws:s3/bucket:Bucket::miniSignifyFrontendBucket"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "customErrorResponses": [],
+                    "defaultCacheBehavior": [],
+                    "defaultRootObject": [],
+                    "enabled": [],
+                    "origins": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:s3/bucket:Bucket::miniSignifyFrontendBucket",
+                        "urn:pulumi:dev::mini-signify-infra::aws:cloudfront/originAccessControl:OriginAccessControl::miniSignifyFrontendOac"
+                    ],
+                    "restrictions": [],
+                    "viewerCertificate": []
+                },
+                "created": "2026-05-05T15:54:48.875133Z",
+                "modified": "2026-05-05T15:54:48.875133Z",
+                "sourcePosition": "project:///index.ts#51,30",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#51,30"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ec2/routeTable:RouteTable::miniSignifyBackendPublicRouteTable",
+                "custom": true,
+                "id": "rtb-073a0b3019bd7a581",
+                "type": "aws:ec2/routeTable:RouteTable",
+                "inputs": {
+                    "__defaults": [],
+                    "routes": [
+                        {
+                            "__defaults": [],
+                            "cidrBlock": "0.0.0.0/0",
+                            "gatewayId": "igw-09f5423067684ebd0"
+                        }
+                    ],
+                    "tags": {
+                        "Name": "mini-signify-backend-public-rt"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-public-rt"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":300000000000,\"delete\":300000000000,\"update\":120000000000}}",
+                    "arn": "arn:aws:ec2:ap-southeast-1:877269913405:route-table/rtb-073a0b3019bd7a581",
+                    "id": "rtb-073a0b3019bd7a581",
+                    "ownerId": "877269913405",
+                    "propagatingVgws": [],
+                    "routes": [
+                        {
+                            "carrierGatewayId": "",
+                            "cidrBlock": "0.0.0.0/0",
+                            "coreNetworkArn": "",
+                            "destinationPrefixListId": "",
+                            "egressOnlyGatewayId": "",
+                            "gatewayId": "igw-09f5423067684ebd0",
+                            "ipv6CidrBlock": "",
+                            "localGatewayId": "",
+                            "natGatewayId": "",
+                            "networkInterfaceId": "",
+                            "transitGatewayId": "",
+                            "vpcEndpointId": "",
+                            "vpcPeeringConnectionId": ""
+                        }
+                    ],
+                    "tags": {
+                        "Name": "mini-signify-backend-public-rt"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-public-rt"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/internetGateway:InternetGateway::miniSignifyBackendInternetGateway",
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "routes": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/internetGateway:InternetGateway::miniSignifyBackendInternetGateway"
+                    ],
+                    "tags": [],
+                    "vpcId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                    ]
+                },
+                "created": "2026-05-07T11:17:26.944531Z",
+                "modified": "2026-05-07T11:17:26.944531Z",
+                "sourcePosition": "project:///index.ts#400,33",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#400,33"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ec2/securityGroup:SecurityGroup::miniSignifyBackendTaskSecurityGroup",
+                "custom": true,
+                "id": "sg-088eec993da41b26a",
+                "type": "aws:ec2/securityGroup:SecurityGroup",
+                "inputs": {
+                    "__defaults": [
+                        "revokeRulesOnDelete"
+                    ],
+                    "description": "Allow backend traffic only from ALB",
+                    "egress": [
+                        {
+                            "__defaults": [
+                                "description",
+                                "self"
+                            ],
+                            "cidrBlocks": [
+                                "0.0.0.0/0"
+                            ],
+                            "description": "",
+                            "fromPort": 0,
+                            "protocol": "-1",
+                            "self": false,
+                            "toPort": 0
+                        }
+                    ],
+                    "ingress": [
+                        {
+                            "__defaults": [
+                                "description",
+                                "self"
+                            ],
+                            "description": "",
+                            "fromPort": 3000,
+                            "protocol": "tcp",
+                            "securityGroups": [
+                                "sg-0d948887723e46bc9"
+                            ],
+                            "self": false,
+                            "toPort": 3000
+                        }
+                    ],
+                    "name": "mini-signify-backend-task-sg",
+                    "revokeRulesOnDelete": false,
+                    "tags": {
+                        "Name": "mini-signify-backend-task-sg"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-task-sg"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":600000000000,\"delete\":900000000000},\"schema_version\":\"1\"}",
+                    "arn": "arn:aws:ec2:ap-southeast-1:877269913405:security-group/sg-088eec993da41b26a",
+                    "description": "Allow backend traffic only from ALB",
+                    "egress": [
+                        {
+                            "cidrBlocks": [
+                                "0.0.0.0/0"
+                            ],
+                            "description": "",
+                            "fromPort": 0,
+                            "ipv6CidrBlocks": [],
+                            "prefixListIds": [],
+                            "protocol": "-1",
+                            "securityGroups": [],
+                            "self": false,
+                            "toPort": 0
+                        }
+                    ],
+                    "id": "sg-088eec993da41b26a",
+                    "ingress": [
+                        {
+                            "cidrBlocks": [],
+                            "description": "",
+                            "fromPort": 3000,
+                            "ipv6CidrBlocks": [],
+                            "prefixListIds": [],
+                            "protocol": "tcp",
+                            "securityGroups": [
+                                "sg-0d948887723e46bc9"
+                            ],
+                            "self": false,
+                            "toPort": 3000
+                        }
+                    ],
+                    "name": "mini-signify-backend-task-sg",
+                    "namePrefix": "",
+                    "ownerId": "877269913405",
+                    "revokeRulesOnDelete": false,
+                    "tags": {
+                        "Name": "mini-signify-backend-task-sg"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-task-sg"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc",
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/securityGroup:SecurityGroup::miniSignifyBackendAlbSecurityGroup"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "description": [],
+                    "egress": [],
+                    "ingress": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/securityGroup:SecurityGroup::miniSignifyBackendAlbSecurityGroup"
+                    ],
+                    "name": [],
+                    "tags": [],
+                    "vpcId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                    ]
+                },
+                "created": "2026-05-07T11:17:30.126355Z",
+                "modified": "2026-05-07T11:17:30.126355Z",
+                "sourcePosition": "project:///index.ts#464,34",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#464,34"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:lb/loadBalancer:LoadBalancer::miniSignifyBackendAlb",
+                "custom": true,
+                "id": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:loadbalancer/app/mini-signify-backend-alb/e3b7d8c35066d170",
+                "type": "aws:lb/loadBalancer:LoadBalancer",
+                "inputs": {
+                    "__defaults": [
+                        "clientKeepAlive",
+                        "desyncMitigationMode",
+                        "dnsRecordClientRoutingPolicy",
+                        "dropInvalidHeaderFields",
+                        "enableCrossZoneLoadBalancing",
+                        "enableDeletionProtection",
+                        "enableHttp2",
+                        "enableTlsVersionAndCipherSuiteHeaders",
+                        "enableWafFailOpen",
+                        "enableXffClientPort",
+                        "enableZonalShift",
+                        "idleTimeout",
+                        "preserveHostHeader",
+                        "xffHeaderProcessingMode"
+                    ],
+                    "clientKeepAlive": 3600,
+                    "desyncMitigationMode": "defensive",
+                    "dnsRecordClientRoutingPolicy": "any_availability_zone",
+                    "dropInvalidHeaderFields": false,
+                    "enableCrossZoneLoadBalancing": false,
+                    "enableDeletionProtection": false,
+                    "enableHttp2": true,
+                    "enableTlsVersionAndCipherSuiteHeaders": false,
+                    "enableWafFailOpen": false,
+                    "enableXffClientPort": false,
+                    "enableZonalShift": false,
+                    "idleTimeout": 60,
+                    "internal": false,
+                    "loadBalancerType": "application",
+                    "name": "mini-signify-backend-alb",
+                    "preserveHostHeader": false,
+                    "securityGroups": [
+                        "sg-0d948887723e46bc9"
+                    ],
+                    "subnets": [
+                        "subnet-01e17f38153da5c0a",
+                        "subnet-02b5345239ce2b0cd"
+                    ],
+                    "tags": {
+                        "Name": "mini-signify-backend-alb"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-alb"
+                    },
+                    "xffHeaderProcessingMode": "append"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":600000000000,\"delete\":600000000000,\"update\":600000000000}}",
+                    "accessLogs": {
+                        "bucket": "",
+                        "enabled": false,
+                        "prefix": ""
+                    },
+                    "arn": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:loadbalancer/app/mini-signify-backend-alb/e3b7d8c35066d170",
+                    "arnSuffix": "app/mini-signify-backend-alb/e3b7d8c35066d170",
+                    "clientKeepAlive": 3600,
+                    "connectionLogs": {
+                        "bucket": "",
+                        "enabled": false,
+                        "prefix": ""
+                    },
+                    "customerOwnedIpv4Pool": "",
+                    "desyncMitigationMode": "defensive",
+                    "dnsName": "mini-signify-backend-alb-1318314844.ap-southeast-1.elb.amazonaws.com",
+                    "dnsRecordClientRoutingPolicy": null,
+                    "dropInvalidHeaderFields": false,
+                    "enableCrossZoneLoadBalancing": true,
+                    "enableDeletionProtection": false,
+                    "enableHttp2": true,
+                    "enableTlsVersionAndCipherSuiteHeaders": false,
+                    "enableWafFailOpen": false,
+                    "enableXffClientPort": false,
+                    "enableZonalShift": false,
+                    "enforceSecurityGroupInboundRulesOnPrivateLinkTraffic": "",
+                    "id": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:loadbalancer/app/mini-signify-backend-alb/e3b7d8c35066d170",
+                    "idleTimeout": 60,
+                    "internal": false,
+                    "ipAddressType": "ipv4",
+                    "ipamPools": null,
+                    "loadBalancerType": "application",
+                    "name": "mini-signify-backend-alb",
+                    "namePrefix": "",
+                    "preserveHostHeader": false,
+                    "securityGroups": [
+                        "sg-0d948887723e46bc9"
+                    ],
+                    "subnetMappings": [
+                        {
+                            "allocationId": "",
+                            "ipv6Address": "",
+                            "outpostId": "",
+                            "privateIpv4Address": "",
+                            "subnetId": "subnet-01e17f38153da5c0a"
+                        },
+                        {
+                            "allocationId": "",
+                            "ipv6Address": "",
+                            "outpostId": "",
+                            "privateIpv4Address": "",
+                            "subnetId": "subnet-02b5345239ce2b0cd"
+                        }
+                    ],
+                    "subnets": [
+                        "subnet-01e17f38153da5c0a",
+                        "subnet-02b5345239ce2b0cd"
+                    ],
+                    "tags": {
+                        "Name": "mini-signify-backend-alb"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-alb"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35",
+                    "xffHeaderProcessingMode": "append",
+                    "zoneId": "Z1LMS91P8CMLE5"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPublicSubnetB",
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/securityGroup:SecurityGroup::miniSignifyBackendAlbSecurityGroup",
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPublicSubnetA"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "internal": [],
+                    "loadBalancerType": [],
+                    "name": [],
+                    "securityGroups": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/securityGroup:SecurityGroup::miniSignifyBackendAlbSecurityGroup"
+                    ],
+                    "subnets": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPublicSubnetA",
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPublicSubnetB"
+                    ],
+                    "tags": []
+                },
+                "created": "2026-05-09T08:47:03.731441Z",
+                "modified": "2026-05-09T08:51:38.135723Z",
+                "sourcePosition": "project:///index.ts#493,29",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#493,29"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:rds/subnetGroup:SubnetGroup::miniSignifyBackendDbSubnetGroup",
+                "custom": true,
+                "id": "mini-signify-backend-db-subnet-group",
+                "type": "aws:rds/subnetGroup:SubnetGroup",
+                "inputs": {
+                    "__defaults": [],
+                    "description": "Managed by Pulumi",
+                    "name": "mini-signify-backend-db-subnet-group",
+                    "subnetIds": [
+                        "subnet-0844a195142851a54",
+                        "subnet-0372a2942d865de94"
+                    ],
+                    "tags": {
+                        "Name": "mini-signify-backend-db-subnet-group"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-db-subnet-group"
+                    }
+                },
+                "outputs": {
+                    "arn": "arn:aws:rds:ap-southeast-1:877269913405:subgrp:mini-signify-backend-db-subnet-group",
+                    "description": "Managed by Pulumi",
+                    "id": "mini-signify-backend-db-subnet-group",
+                    "name": "mini-signify-backend-db-subnet-group",
+                    "namePrefix": "",
+                    "subnetIds": [
+                        "subnet-0372a2942d865de94",
+                        "subnet-0844a195142851a54"
+                    ],
+                    "supportedNetworkTypes": [
+                        "IPV4"
+                    ],
+                    "tags": {
+                        "Name": "mini-signify-backend-db-subnet-group"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-db-subnet-group"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPrivateSubnetA",
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPrivateSubnetB"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "description": [],
+                    "name": [],
+                    "subnetIds": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPrivateSubnetA",
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPrivateSubnetB"
+                    ],
+                    "tags": []
+                },
+                "created": "2026-05-14T16:01:34.5983Z",
+                "modified": "2026-05-14T16:01:34.5983Z",
+                "sourcePosition": "project:///index.ts#568,30",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#568,30"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:iam/policy:Policy::githubActionsPolicy",
+                "custom": true,
+                "id": "arn:aws:iam::877269913405:policy/mini-signify-github-actions-policy",
+                "type": "aws:iam/policy:Policy",
+                "inputs": {
+                    "__defaults": [
+                        "path"
+                    ],
+                    "name": "mini-signify-github-actions-policy",
+                    "path": "/",
+                    "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"AllowEcrAuthToken\",\"Effect\":\"Allow\",\"Action\":[\"ecr:GetAuthorizationToken\"],\"Resource\":\"*\"},{\"Sid\":\"AllowBackendEcrPushPull\",\"Effect\":\"Allow\",\"Action\":[\"ecr:BatchCheckLayerAvailability\",\"ecr:BatchGetImage\",\"ecr:CompleteLayerUpload\",\"ecr:DescribeImages\",\"ecr:DescribeRepositories\",\"ecr:GetDownloadUrlForLayer\",\"ecr:InitiateLayerUpload\",\"ecr:ListImages\",\"ecr:PutImage\",\"ecr:UploadLayerPart\"],\"Resource\":\"arn:aws:ecr:ap-southeast-1:877269913405:repository/mini-signify-backend\"},{\"Sid\":\"AllowFrontendBucketList\",\"Effect\":\"Allow\",\"Action\":[\"s3:ListBucket\"],\"Resource\":\"arn:aws:s3:::mini-signify-frontend-877269913405-ap-southeast-1\"},{\"Sid\":\"AllowFrontendAssetsUploadDelete\",\"Effect\":\"Allow\",\"Action\":[\"s3:GetObject\",\"s3:PutObject\",\"s3:DeleteObject\"],\"Resource\":\"arn:aws:s3:::mini-signify-frontend-877269913405-ap-southeast-1/*\"},{\"Sid\":\"AllowFrontendCloudFrontInvalidation\",\"Effect\":\"Allow\",\"Action\":[\"cloudfront:CreateInvalidation\",\"cloudfront:GetInvalidation\",\"cloudfront:ListInvalidations\"],\"Resource\":\"arn:aws:cloudfront::877269913405:distribution/E10DTOUM4T3XCD\"}]}"
+                },
+                "outputs": {
+                    "arn": "arn:aws:iam::877269913405:policy/mini-signify-github-actions-policy",
+                    "attachmentCount": 1,
+                    "description": "",
+                    "id": "arn:aws:iam::877269913405:policy/mini-signify-github-actions-policy",
+                    "name": "mini-signify-github-actions-policy",
+                    "namePrefix": "",
+                    "path": "/",
+                    "policy": "{\"Statement\":[{\"Action\":[\"ecr:GetAuthorizationToken\"],\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"AllowEcrAuthToken\"},{\"Action\":[\"ecr:BatchCheckLayerAvailability\",\"ecr:BatchGetImage\",\"ecr:CompleteLayerUpload\",\"ecr:DescribeImages\",\"ecr:DescribeRepositories\",\"ecr:GetDownloadUrlForLayer\",\"ecr:InitiateLayerUpload\",\"ecr:ListImages\",\"ecr:PutImage\",\"ecr:UploadLayerPart\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:ecr:ap-southeast-1:877269913405:repository/mini-signify-backend\",\"Sid\":\"AllowBackendEcrPushPull\"},{\"Action\":[\"s3:ListBucket\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::mini-signify-frontend-877269913405-ap-southeast-1\",\"Sid\":\"AllowFrontendBucketList\"},{\"Action\":[\"s3:GetObject\",\"s3:PutObject\",\"s3:DeleteObject\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::mini-signify-frontend-877269913405-ap-southeast-1/*\",\"Sid\":\"AllowFrontendAssetsUploadDelete\"},{\"Action\":[\"cloudfront:CreateInvalidation\",\"cloudfront:GetInvalidation\",\"cloudfront:ListInvalidations\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:cloudfront::877269913405:distribution/E10DTOUM4T3XCD\",\"Sid\":\"AllowFrontendCloudFrontInvalidation\"}],\"Version\":\"2012-10-17\"}",
+                    "policyId": "ANPA4YQK4R46RBWEHWXPQ"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ecr/repository:Repository::miniSignifyBackendRepo",
+                    "urn:pulumi:dev::mini-signify-infra::aws:s3/bucket:Bucket::miniSignifyFrontendBucket",
+                    "urn:pulumi:dev::mini-signify-infra::aws:cloudfront/distribution:Distribution::miniSignifyFrontendDistribution"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "name": [],
+                    "policy": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ecr/repository:Repository::miniSignifyBackendRepo",
+                        "urn:pulumi:dev::mini-signify-infra::aws:s3/bucket:Bucket::miniSignifyFrontendBucket",
+                        "urn:pulumi:dev::mini-signify-infra::aws:cloudfront/distribution:Distribution::miniSignifyFrontendDistribution"
+                    ]
+                },
+                "created": "2026-04-30T10:28:16.737172Z",
+                "modified": "2026-05-07T09:40:28.712909Z",
+                "sourcePosition": "project:///index.ts#178,29",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#178,29"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:s3/bucketPolicy:BucketPolicy::miniSignifyFrontendBucketPolicy",
+                "custom": true,
+                "id": "mini-signify-frontend-877269913405-ap-southeast-1",
+                "type": "aws:s3/bucketPolicy:BucketPolicy",
+                "inputs": {
+                    "__defaults": [],
+                    "bucket": "mini-signify-frontend-877269913405-ap-southeast-1",
+                    "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"AllowCloudFrontReadAccess\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"cloudfront.amazonaws.com\"},\"Action\":\"s3:GetObject\",\"Resource\":\"arn:aws:s3:::mini-signify-frontend-877269913405-ap-southeast-1/*\",\"Condition\":{\"StringEquals\":{\"AWS:SourceArn\":\"arn:aws:cloudfront::877269913405:distribution/E10DTOUM4T3XCD\"}}}]}"
+                },
+                "outputs": {
+                    "bucket": "mini-signify-frontend-877269913405-ap-southeast-1",
+                    "id": "mini-signify-frontend-877269913405-ap-southeast-1",
+                    "policy": "{\"Statement\":[{\"Action\":\"s3:GetObject\",\"Condition\":{\"StringEquals\":{\"AWS:SourceArn\":\"arn:aws:cloudfront::877269913405:distribution/E10DTOUM4T3XCD\"}},\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"cloudfront.amazonaws.com\"},\"Resource\":\"arn:aws:s3:::mini-signify-frontend-877269913405-ap-southeast-1/*\",\"Sid\":\"AllowCloudFrontReadAccess\"}],\"Version\":\"2012-10-17\"}"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:s3/bucket:Bucket::miniSignifyFrontendBucket",
+                    "urn:pulumi:dev::mini-signify-infra::aws:cloudfront/distribution:Distribution::miniSignifyFrontendDistribution"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "bucket": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:s3/bucket:Bucket::miniSignifyFrontendBucket"
+                    ],
+                    "policy": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:s3/bucket:Bucket::miniSignifyFrontendBucket",
+                        "urn:pulumi:dev::mini-signify-infra::aws:cloudfront/distribution:Distribution::miniSignifyFrontendDistribution"
+                    ]
+                },
+                "created": "2026-05-05T15:54:50.237415Z",
+                "modified": "2026-05-05T15:54:50.237415Z",
+                "sourcePosition": "project:///index.ts#110,30",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#110,30"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ec2/routeTableAssociation:RouteTableAssociation::miniSignifyBackendPublicSubnetBAssociation",
+                "custom": true,
+                "id": "rtbassoc-0c0ff1e5648f6d1e6",
+                "type": "aws:ec2/routeTableAssociation:RouteTableAssociation",
+                "inputs": {
+                    "__defaults": [],
+                    "routeTableId": "rtb-073a0b3019bd7a581",
+                    "subnetId": "subnet-02b5345239ce2b0cd"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":300000000000,\"delete\":300000000000,\"update\":120000000000}}",
+                    "gatewayId": "",
+                    "id": "rtbassoc-0c0ff1e5648f6d1e6",
+                    "routeTableId": "rtb-073a0b3019bd7a581",
+                    "subnetId": "subnet-02b5345239ce2b0cd"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/routeTable:RouteTable::miniSignifyBackendPublicRouteTable",
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPublicSubnetB"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "routeTableId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/routeTable:RouteTable::miniSignifyBackendPublicRouteTable"
+                    ],
+                    "subnetId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPublicSubnetB"
+                    ]
+                },
+                "created": "2026-05-07T11:17:36.493692Z",
+                "modified": "2026-05-07T11:17:36.493692Z",
+                "sourcePosition": "project:///index.ts#423,1",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#423,1"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ec2/routeTableAssociation:RouteTableAssociation::miniSignifyBackendPublicSubnetAAssociation",
+                "custom": true,
+                "id": "rtbassoc-0ad3c7e738e1aef87",
+                "type": "aws:ec2/routeTableAssociation:RouteTableAssociation",
+                "inputs": {
+                    "__defaults": [],
+                    "routeTableId": "rtb-073a0b3019bd7a581",
+                    "subnetId": "subnet-01e17f38153da5c0a"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":300000000000,\"delete\":300000000000,\"update\":120000000000}}",
+                    "gatewayId": "",
+                    "id": "rtbassoc-0ad3c7e738e1aef87",
+                    "routeTableId": "rtb-073a0b3019bd7a581",
+                    "subnetId": "subnet-01e17f38153da5c0a"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/routeTable:RouteTable::miniSignifyBackendPublicRouteTable",
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPublicSubnetA"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "routeTableId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/routeTable:RouteTable::miniSignifyBackendPublicRouteTable"
+                    ],
+                    "subnetId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/subnet:Subnet::miniSignifyBackendPublicSubnetA"
+                    ]
+                },
+                "created": "2026-05-07T11:17:36.574413Z",
+                "modified": "2026-05-07T11:17:36.574413Z",
+                "sourcePosition": "project:///index.ts#417,1",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#417,1"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ec2/securityGroup:SecurityGroup::miniSignifyBackendDbSecurityGroup",
+                "custom": true,
+                "id": "sg-0e95c583c5e9c60b6",
+                "type": "aws:ec2/securityGroup:SecurityGroup",
+                "inputs": {
+                    "__defaults": [
+                        "revokeRulesOnDelete"
+                    ],
+                    "description": "Allow PostgreSQL traffic only from backend ECS tasks",
+                    "egress": [
+                        {
+                            "__defaults": [
+                                "description",
+                                "self"
+                            ],
+                            "cidrBlocks": [
+                                "0.0.0.0/0"
+                            ],
+                            "description": "",
+                            "fromPort": 0,
+                            "protocol": "-1",
+                            "self": false,
+                            "toPort": 0
+                        }
+                    ],
+                    "ingress": [
+                        {
+                            "__defaults": [
+                                "description",
+                                "self"
+                            ],
+                            "description": "",
+                            "fromPort": 5432,
+                            "protocol": "tcp",
+                            "securityGroups": [
+                                "sg-088eec993da41b26a"
+                            ],
+                            "self": false,
+                            "toPort": 5432
+                        }
+                    ],
+                    "name": "mini-signify-backend-db-sg",
+                    "revokeRulesOnDelete": false,
+                    "tags": {
+                        "Name": "mini-signify-backend-db-sg"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-db-sg"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":600000000000,\"delete\":900000000000},\"schema_version\":\"1\"}",
+                    "arn": "arn:aws:ec2:ap-southeast-1:877269913405:security-group/sg-0e95c583c5e9c60b6",
+                    "description": "Allow PostgreSQL traffic only from backend ECS tasks",
+                    "egress": [
+                        {
+                            "cidrBlocks": [
+                                "0.0.0.0/0"
+                            ],
+                            "description": "",
+                            "fromPort": 0,
+                            "ipv6CidrBlocks": [],
+                            "prefixListIds": [],
+                            "protocol": "-1",
+                            "securityGroups": [],
+                            "self": false,
+                            "toPort": 0
+                        }
+                    ],
+                    "id": "sg-0e95c583c5e9c60b6",
+                    "ingress": [
+                        {
+                            "cidrBlocks": [],
+                            "description": "",
+                            "fromPort": 5432,
+                            "ipv6CidrBlocks": [],
+                            "prefixListIds": [],
+                            "protocol": "tcp",
+                            "securityGroups": [
+                                "sg-088eec993da41b26a"
+                            ],
+                            "self": false,
+                            "toPort": 5432
+                        }
+                    ],
+                    "name": "mini-signify-backend-db-sg",
+                    "namePrefix": "",
+                    "ownerId": "877269913405",
+                    "revokeRulesOnDelete": false,
+                    "tags": {
+                        "Name": "mini-signify-backend-db-sg"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-db-sg"
+                    },
+                    "vpcId": "vpc-05246323bcf8c7e35"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/securityGroup:SecurityGroup::miniSignifyBackendTaskSecurityGroup",
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "description": [],
+                    "egress": [],
+                    "ingress": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/securityGroup:SecurityGroup::miniSignifyBackendTaskSecurityGroup"
+                    ],
+                    "name": [],
+                    "tags": [],
+                    "vpcId": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/vpc:Vpc::miniSignifyBackendVpc"
+                    ]
+                },
+                "created": "2026-05-14T16:01:33.628266Z",
+                "modified": "2026-05-14T16:01:33.628266Z",
+                "sourcePosition": "project:///index.ts#539,32",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#539,32"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:lb/listener:Listener::miniSignifyBackendHttpListener",
+                "custom": true,
+                "id": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:listener/app/mini-signify-backend-alb/e3b7d8c35066d170/108193b73a43c152",
+                "type": "aws:lb/listener:Listener",
+                "inputs": {
+                    "__defaults": [],
+                    "defaultActions": [
+                        {
+                            "__defaults": [],
+                            "targetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:targetgroup/mini-signify-backend-tg/6d9bb3ad9bc5a31f",
+                            "type": "forward"
+                        }
+                    ],
+                    "loadBalancerArn": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:loadbalancer/app/mini-signify-backend-alb/e3b7d8c35066d170",
+                    "port": 80,
+                    "protocol": "HTTP"
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":300000000000,\"update\":300000000000}}",
+                    "alpnPolicy": null,
+                    "arn": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:listener/app/mini-signify-backend-alb/e3b7d8c35066d170/108193b73a43c152",
+                    "certificateArn": null,
+                    "defaultActions": [
+                        {
+                            "authenticateCognito": null,
+                            "authenticateOidc": null,
+                            "fixedResponse": null,
+                            "forward": null,
+                            "order": 1,
+                            "redirect": null,
+                            "targetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:targetgroup/mini-signify-backend-tg/6d9bb3ad9bc5a31f",
+                            "type": "forward"
+                        }
+                    ],
+                    "id": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:listener/app/mini-signify-backend-alb/e3b7d8c35066d170/108193b73a43c152",
+                    "loadBalancerArn": "arn:aws:elasticloadbalancing:ap-southeast-1:877269913405:loadbalancer/app/mini-signify-backend-alb/e3b7d8c35066d170",
+                    "mutualAuthentication": null,
+                    "port": 80,
+                    "protocol": "HTTP",
+                    "routingHttpRequestXAmznMtlsClientcertHeaderName": null,
+                    "routingHttpRequestXAmznMtlsClientcertIssuerHeaderName": null,
+                    "routingHttpRequestXAmznMtlsClientcertLeafHeaderName": null,
+                    "routingHttpRequestXAmznMtlsClientcertSerialNumberHeaderName": null,
+                    "routingHttpRequestXAmznMtlsClientcertSubjectHeaderName": null,
+                    "routingHttpRequestXAmznMtlsClientcertValidityHeaderName": null,
+                    "routingHttpRequestXAmznTlsCipherSuiteHeaderName": null,
+                    "routingHttpRequestXAmznTlsVersionHeaderName": null,
+                    "routingHttpResponseAccessControlAllowCredentialsHeaderValue": "",
+                    "routingHttpResponseAccessControlAllowHeadersHeaderValue": "",
+                    "routingHttpResponseAccessControlAllowMethodsHeaderValue": "",
+                    "routingHttpResponseAccessControlAllowOriginHeaderValue": "",
+                    "routingHttpResponseAccessControlExposeHeadersHeaderValue": "",
+                    "routingHttpResponseAccessControlMaxAgeHeaderValue": "",
+                    "routingHttpResponseContentSecurityPolicyHeaderValue": "",
+                    "routingHttpResponseServerEnabled": true,
+                    "routingHttpResponseStrictTransportSecurityHeaderValue": "",
+                    "routingHttpResponseXContentTypeOptionsHeaderValue": "",
+                    "routingHttpResponseXFrameOptionsHeaderValue": "",
+                    "sslPolicy": "",
+                    "tcpIdleTimeoutSeconds": null
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:lb/targetGroup:TargetGroup::miniSignifyBackendTargetGroup",
+                    "urn:pulumi:dev::mini-signify-infra::aws:lb/loadBalancer:LoadBalancer::miniSignifyBackendAlb"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "defaultActions": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:lb/targetGroup:TargetGroup::miniSignifyBackendTargetGroup"
+                    ],
+                    "loadBalancerArn": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:lb/loadBalancer:LoadBalancer::miniSignifyBackendAlb"
+                    ],
+                    "port": [],
+                    "protocol": []
+                },
+                "created": "2026-05-09T08:51:39.734116Z",
+                "modified": "2026-05-09T08:58:52.871282Z",
+                "sourcePosition": "project:///index.ts#525,29",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#525,29"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:iam/rolePolicyAttachment:RolePolicyAttachment::githubActionsPolicyAttachment",
+                "custom": true,
+                "id": "mini-signify-github-actions-role-20260430102818315200000001",
+                "type": "aws:iam/rolePolicyAttachment:RolePolicyAttachment",
+                "inputs": {
+                    "__defaults": [],
+                    "policyArn": "arn:aws:iam::877269913405:policy/mini-signify-github-actions-policy",
+                    "role": "mini-signify-github-actions-role"
+                },
+                "outputs": {
+                    "id": "mini-signify-github-actions-role-20260430102818315200000001",
+                    "policyArn": "arn:aws:iam::877269913405:policy/mini-signify-github-actions-policy",
+                    "role": "mini-signify-github-actions-role"
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:iam/policy:Policy::githubActionsPolicy",
+                    "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::githubActionsRole"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "policyArn": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:iam/policy:Policy::githubActionsPolicy"
+                    ],
+                    "role": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::githubActionsRole"
+                    ]
+                },
+                "created": "2026-04-30T10:28:18.580483Z",
+                "modified": "2026-04-30T10:28:18.580483Z",
+                "sourcePosition": "project:///index.ts#238,39",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#238,39"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:rds/instance:Instance::miniSignifyBackendDb",
+                "custom": true,
+                "id": "db-VAUS3RRJQ3GZCKYFEDHZM2KR3Y",
+                "type": "aws:rds/instance:Instance",
+                "inputs": {
+                    "__defaults": [
+                        "applyImmediately",
+                        "autoMinorVersionUpgrade",
+                        "copyTagsToSnapshot",
+                        "dedicatedLogVolume",
+                        "deleteAutomatedBackups",
+                        "monitoringInterval",
+                        "performanceInsightsEnabled"
+                    ],
+                    "allocatedStorage": 20,
+                    "applyImmediately": false,
+                    "autoMinorVersionUpgrade": true,
+                    "copyTagsToSnapshot": false,
+                    "dbName": "mini_signify",
+                    "dbSubnetGroupName": "mini-signify-backend-db-subnet-group",
+                    "dedicatedLogVolume": false,
+                    "deleteAutomatedBackups": true,
+                    "deletionProtection": false,
+                    "engine": "postgres",
+                    "engineVersion": "16",
+                    "identifier": "mini-signify-backend-db",
+                    "instanceClass": "db.t4g.micro",
+                    "monitoringInterval": 0,
+                    "password": {
+                        "4dabf18193072939515e22adb298388d": "1b47061264138c4ac30d75fd1eb44270",
+                        "ciphertext": "v1:IOB1qeT93iXOUTuX:HeRKwbRTP32z0sK9kxIQbpz1e4Jpe5sJcw7kKA=="
+                    },
+                    "performanceInsightsEnabled": false,
+                    "publiclyAccessible": false,
+                    "skipFinalSnapshot": true,
+                    "storageType": "gp3",
+                    "tags": {
+                        "Name": "mini-signify-backend-db"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-db"
+                    },
+                    "username": "postgres",
+                    "vpcSecurityGroupIds": [
+                        "sg-0e95c583c5e9c60b6"
+                    ]
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":3000000000000,\"delete\":3600000000000,\"update\":4800000000000},\"schema_version\":\"2\"}",
+                    "address": "mini-signify-backend-db.c5cuoo6ggruc.ap-southeast-1.rds.amazonaws.com",
+                    "allocatedStorage": 20,
+                    "allowMajorVersionUpgrade": null,
+                    "applyImmediately": false,
+                    "arn": "arn:aws:rds:ap-southeast-1:877269913405:db:mini-signify-backend-db",
+                    "autoMinorVersionUpgrade": true,
+                    "availabilityZone": "ap-southeast-1a",
+                    "backupRetentionPeriod": 0,
+                    "backupTarget": "region",
+                    "backupWindow": "15:17-15:47",
+                    "blueGreenUpdate": null,
+                    "caCertIdentifier": "rds-ca-rsa2048-g1",
+                    "characterSetName": "",
+                    "copyTagsToSnapshot": false,
+                    "customIamInstanceProfile": "",
+                    "customerOwnedIpEnabled": false,
+                    "databaseInsightsMode": "standard",
+                    "dbName": "mini_signify",
+                    "dbSubnetGroupName": "mini-signify-backend-db-subnet-group",
+                    "dedicatedLogVolume": false,
+                    "deleteAutomatedBackups": true,
+                    "deletionProtection": false,
+                    "domain": "",
+                    "domainAuthSecretArn": "",
+                    "domainDnsIps": null,
+                    "domainFqdn": "",
+                    "domainIamRoleName": "",
+                    "domainOu": "",
+                    "enabledCloudwatchLogsExports": null,
+                    "endpoint": "mini-signify-backend-db.c5cuoo6ggruc.ap-southeast-1.rds.amazonaws.com:5432",
+                    "engine": "postgres",
+                    "engineLifecycleSupport": "open-source-rds-extended-support",
+                    "engineVersion": "16",
+                    "engineVersionActual": "16.13",
+                    "finalSnapshotIdentifier": null,
+                    "hostedZoneId": "Z2G0U3KFCY8NZ5",
+                    "iamDatabaseAuthenticationEnabled": false,
+                    "id": "db-VAUS3RRJQ3GZCKYFEDHZM2KR3Y",
+                    "identifier": "mini-signify-backend-db",
+                    "identifierPrefix": "",
+                    "instanceClass": "db.t4g.micro",
+                    "iops": 3000,
+                    "kmsKeyId": "",
+                    "latestRestorableTime": "",
+                    "licenseModel": "postgresql-license",
+                    "listenerEndpoints": [],
+                    "maintenanceWindow": "tue:16:44-tue:17:14",
+                    "manageMasterUserPassword": null,
+                    "masterUserSecretKmsKeyId": null,
+                    "masterUserSecrets": [],
+                    "maxAllocatedStorage": 0,
+                    "monitoringInterval": 0,
+                    "monitoringRoleArn": "",
+                    "multiAz": false,
+                    "ncharCharacterSetName": "",
+                    "networkType": "IPV4",
+                    "optionGroupName": "default:postgres-16",
+                    "parameterGroupName": "default.postgres16",
+                    "password": {
+                        "4dabf18193072939515e22adb298388d": "1b47061264138c4ac30d75fd1eb44270",
+                        "ciphertext": "v1:K3lH2np5+CETO34S:I58sVH5mF0zg9VpNQEDddJWfjOrPsAYg1PZmpQ=="
+                    },
+                    "passwordWo": {
+                        "4dabf18193072939515e22adb298388d": "1b47061264138c4ac30d75fd1eb44270",
+                        "ciphertext": "v1:aYL3PEkBriLDqh6d:u2jLbh/xKrzQ5xtD7R3k8eOcl8Q="
+                    },
+                    "passwordWoVersion": null,
+                    "performanceInsightsEnabled": false,
+                    "performanceInsightsKmsKeyId": "",
+                    "performanceInsightsRetentionPeriod": 0,
+                    "port": 5432,
+                    "publiclyAccessible": false,
+                    "replicaMode": "",
+                    "replicas": [],
+                    "replicateSourceDb": "",
+                    "resourceId": "db-VAUS3RRJQ3GZCKYFEDHZM2KR3Y",
+                    "restoreToPointInTime": null,
+                    "s3Import": null,
+                    "skipFinalSnapshot": true,
+                    "snapshotIdentifier": null,
+                    "status": "available",
+                    "storageEncrypted": false,
+                    "storageThroughput": 125,
+                    "storageType": "gp3",
+                    "tags": {
+                        "Name": "mini-signify-backend-db"
+                    },
+                    "tagsAll": {
+                        "Name": "mini-signify-backend-db"
+                    },
+                    "timezone": "",
+                    "upgradeStorageConfig": null,
+                    "username": "postgres",
+                    "vpcSecurityGroupIds": [
+                        "sg-0e95c583c5e9c60b6"
+                    ]
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:rds/subnetGroup:SubnetGroup::miniSignifyBackendDbSubnetGroup",
+                    "urn:pulumi:dev::mini-signify-infra::aws:ec2/securityGroup:SecurityGroup::miniSignifyBackendDbSecurityGroup"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "allocatedStorage": [],
+                    "dbName": [],
+                    "dbSubnetGroupName": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:rds/subnetGroup:SubnetGroup::miniSignifyBackendDbSubnetGroup"
+                    ],
+                    "deletionProtection": [],
+                    "engine": [],
+                    "engineVersion": [],
+                    "identifier": [],
+                    "instanceClass": [],
+                    "password": [],
+                    "publiclyAccessible": [],
+                    "skipFinalSnapshot": [],
+                    "storageType": [],
+                    "tags": [],
+                    "username": [],
+                    "vpcSecurityGroupIds": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:ec2/securityGroup:SecurityGroup::miniSignifyBackendDbSecurityGroup"
+                    ]
+                },
+                "additionalSecretOutputs": [
+                    "password"
+                ],
+                "created": "2026-05-14T16:06:30.058365Z",
+                "modified": "2026-05-14T16:06:30.058365Z",
+                "sourcePosition": "project:///index.ts#580,27",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#580,27"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            },
+            {
+                "urn": "urn:pulumi:dev::mini-signify-infra::aws:ecs/taskDefinition:TaskDefinition::miniSignifyBackendTaskDefinition",
+                "custom": true,
+                "id": "mini-signify-backend",
+                "type": "aws:ecs/taskDefinition:TaskDefinition",
+                "inputs": {
+                    "__defaults": [
+                        "skipDestroy",
+                        "trackLatest"
+                    ],
+                    "containerDefinitions": {
+                        "4dabf18193072939515e22adb298388d": "1b47061264138c4ac30d75fd1eb44270",
+                        "ciphertext": "v1:fnz9fZLvtE1MjuPW:1/naOcycQFz+t0e5MoGW9u3x42FRpD51PE6n/Jvq/qhd/aHzvydDxnYgtYxVKoTixMjGm+LT/iV8N8CKPF6//3lr11SxsaFdypnygn3eaZr+/7fCkTUqWS2qts47igyrwgJOP3YDeYKoSfWXMuqFbcVi5Y8+7Qms1TRIwRG/faiNtiqtUdOUXSvDJNYowSk3iaeS9tr7RsOVs+x9TWrXcD3mNeD5IW1arfa/9nUiRmKYp1y0kdGNmcICIP0m/ch5WQWICboNtPu35+PrSHEAj8LVZJZGtQWZqFJTuIqA+f6bgadU7NSXRfRcHL+dYz5BvntZ5KmsC/czsdj40eH4bwYRXduaHRDkRiXDLfmbY7eBPK4ycqKsiFBRisjiC7egsvtzK0DD2uyB/EtKZdPsedxe3E6TtZvjdI5d0Ij4itVwHaMwr2Po5Hj1lhtztWQ/8fm/d7WwMct7t1TaIrn4PqcuJcWcA8ILuyzvdMSDXtPjENF23Y2iGFli+vLjezm/gZtkJvnkNbV/ko7HES5A0fS6/BHzxgB5rZbqMsJ9AvahJ32hQ4EFeiW5ndrlUs+6A3xCP9qHwuemU9eE/bEw2K2Ya/JQIB7TSfTSSiBcVUvGY1hHkqtzICDPVjxjWQScEnBgq/X8pdZoHaOqKYu383+bTWGuup/dACVydt/a6B4BLhl3dkCP+Tim03w2PmEFsqYhOdzdwS64Ef1F12nCyVsIH9YqNeTaKXfJyJOMeWSUf/TkUjwHfPYg3O6cpXLYJCEFhoW95A/szzuPSCBc4nLhA0t+YA/6bf7zZEgrJ73yAS4ev5gT4hisYgPXswB2SeqIT/h7QzTHeD3hFZ71/9sfwhUaElJUadmvJW18bvlTS5hhSSs//6nNd0hGQ4FOvCreQPKO/SB4KC84xNrliwbHmQWSYQ1QxrkDyW3gcEndSbptSMHES1RNESCj5R1721mBRPfUIucoNQLlIBepSUthWqHI8Luo5vRtoT7ruG9NqLPEXUVVAU0zxrCjy+5akR2+w5DpD1GFTh59TuA3jOezMC+yUUuWH18n7X1fLgfxiijZibQDtypbrrIYH66MeDKVoQ+ZMDx+inrUyvovepyMS1ZawHUpFXeMFxs32FkpXYUFHPpT+OJzPNzxmWyF8CRj70j/ziaKcyO3OShrZLirxKr3XYadUrNVIM2FBE0CjUGlvykPjOGrNMbhFYIR4ADJnaJQa/kloARTWonXvCIHI9Ts5Tlnkvm4gpe7A0ZBHO4lg6xByX0HqQ=="
+                    },
+                    "cpu": "256",
+                    "executionRoleArn": "arn:aws:iam::877269913405:role/mini-signify-backend-task-execution-role",
+                    "family": "mini-signify-backend",
+                    "memory": "512",
+                    "networkMode": "awsvpc",
+                    "requiresCompatibilities": [
+                        "FARGATE"
+                    ],
+                    "skipDestroy": false,
+                    "taskRoleArn": "arn:aws:iam::877269913405:role/mini-signify-backend-task-role",
+                    "trackLatest": false
+                },
+                "outputs": {
+                    "__meta": "{\"schema_version\":\"1\"}",
+                    "arn": "arn:aws:ecs:ap-southeast-1:877269913405:task-definition/mini-signify-backend:1",
+                    "arnWithoutRevision": null,
+                    "containerDefinitions": {
+                        "4dabf18193072939515e22adb298388d": "1b47061264138c4ac30d75fd1eb44270",
+                        "ciphertext": "v1:9jKoGyF7aY54rv6F:PfzuCAMNSWBmzjhSDXzIVtuhJ/VFQDS5f57ja9n/UgilZhqW8B0vgKnSLGNiP4mJvZ6tt0HohOeuGeQTiU2Ea+F70wOnVZN2+IkircEu0ht7iBj5jptqXDfb4oFR4XdHA7Dpo8dKyspfxApGy9EpRXFY/RHEa42jsJYonkU/DddFrd35pTv3H5b+7l4SItpk9GNyyQ5ON6+VYtVFbbflXaZ23v+ZrJ+bMnJde90eVXsbahKZH/NQwN1wDwUonkwd8llYQHuzcBZTvegnp6wl69zdbiygUP/yNy77eDW2CN3k/X9cKcBNLQhCQa5FWWF/qSuP33GcdxpisJcnIOqIbS6SQggHwOZ3rdAoA+D37A45AGrk1EbqwAE1il++8VoFoxVBZoc/DhnDoD41K2XIyAjPq8I3bZYSZ5cwKYldp+qfcQWc4IhKgkti0H4yRrSN5KFx5dK/R5biaviJQS0PgVwW2PiO4mwjBw2TgI7mlsYJO6l9WgS38GPjRy3K0ZlSkbFqGndBYtz4wE/YLfaKCW2MGSked6XJRZgmioDTNKk8xIjFYl92cAcvPnAVn4vIxu45V4eKe9KzydoZmlobd1zlPTOJ0F0Wj7HPU0OCV/CBbqsRmW3JoGqEPIHTunz3l4k6CzTfY0/ri5/HtEwn9s6ysZPaXgb0y+nmCXmbTvImUDgcLCaksqSSpMShByKgjV8JjBWSMoir/fGr7iaxDa/Bfzmwkj8GFNxxFIkRhOuE0MH/L5X4/OUOSzch1YNxFDmoabWuuu/zmR4QHk0paWJox32IkcwvLDp5p4u1GWrwRLrfdWAOQTHmZZDsi3yf1U7Lbszgq5BOv7X0BSqzNTSMbkmq5kphiHJGdyLC3wccfzUbBPRCLRdvuzQgM8sMXyeA/a+4cIEaMpGBADMb6EaL5OVHhnlJj5iiL3lszaTYEAeiRt9VymF0NNDDWuhVd8ZQnl8JSyjj1M/lNtWSeOIkoWISAuwDgZvZJHI3Y4+p+YeUU1F/xlGVauytDlXPgRpprNZf9LCEzoMNWuqaxOegmqFYOiINEc5jS0yS/qzKaoaFMyJWot6HBbB5oaWwWAj7T5EjJ3AycZ2odewEAergIDf2Y6UjovShoONIAGfJu3S4JYat1uUiPJHKWHLblbum8ZKR9AEQbPIS1ky9Tbkx8DzifvefO3JWVs5CHbt3By3RL4Qzx3wXGuGSNi9Ej+Az/Sp7/in48tHwmYjrFqby4W4AgMpZLh7wjjzF5kEp9rhZKJYhK3RgZQ=="
+                    },
+                    "cpu": "256",
+                    "enableFaultInjection": null,
+                    "ephemeralStorage": null,
+                    "executionRoleArn": "arn:aws:iam::877269913405:role/mini-signify-backend-task-execution-role",
+                    "family": "mini-signify-backend",
+                    "id": "mini-signify-backend",
+                    "inferenceAccelerators": [],
+                    "ipcMode": null,
+                    "memory": "512",
+                    "networkMode": "awsvpc",
+                    "pidMode": null,
+                    "placementConstraints": [],
+                    "proxyConfiguration": null,
+                    "requiresCompatibilities": [
+                        "FARGATE"
+                    ],
+                    "revision": null,
+                    "runtimePlatform": null,
+                    "skipDestroy": false,
+                    "taskRoleArn": "arn:aws:iam::877269913405:role/mini-signify-backend-task-role",
+                    "trackLatest": false,
+                    "volumes": []
+                },
+                "parent": "urn:pulumi:dev::mini-signify-infra::pulumi:pulumi:Stack::mini-signify-infra-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::mini-signify-infra::aws:rds/instance:Instance::miniSignifyBackendDb",
+                    "urn:pulumi:dev::mini-signify-infra::aws:cloudwatch/logGroup:LogGroup::miniSignifyBackendLogGroup",
+                    "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::miniSignifyBackendTaskExecutionRole",
+                    "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::miniSignifyBackendTaskRole",
+                    "urn:pulumi:dev::mini-signify-infra::aws:ecr/repository:Repository::miniSignifyBackendRepo"
+                ],
+                "initErrors": [
+                    "creating urn:pulumi:dev::mini-signify-infra::aws:ecs/taskDefinition:TaskDefinition::miniSignifyBackendTaskDefinition: 1 error occurred:\n\t* reading ECS Task Definition (arn:aws:ecs:ap-southeast-1:877269913405:task-definition/mini-signify-backend:1): couldn't find resource\n\n"
+                ],
+                "provider": "urn:pulumi:dev::mini-signify-infra::pulumi:providers:aws::default_6_78_0::3d5b7a90-5cde-4e43-80ac-cee5af262919",
+                "propertyDependencies": {
+                    "containerDefinitions": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:cloudwatch/logGroup:LogGroup::miniSignifyBackendLogGroup",
+                        "urn:pulumi:dev::mini-signify-infra::aws:ecr/repository:Repository::miniSignifyBackendRepo",
+                        "urn:pulumi:dev::mini-signify-infra::aws:rds/instance:Instance::miniSignifyBackendDb"
+                    ],
+                    "cpu": [],
+                    "executionRoleArn": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::miniSignifyBackendTaskExecutionRole"
+                    ],
+                    "family": [],
+                    "memory": [],
+                    "networkMode": [],
+                    "requiresCompatibilities": [],
+                    "taskRoleArn": [
+                        "urn:pulumi:dev::mini-signify-infra::aws:iam/role:Role::miniSignifyBackendTaskRole"
+                    ]
+                },
+                "created": "2026-05-16T10:15:01.415528Z",
+                "modified": "2026-05-16T10:15:01.415528Z",
+                "sourcePosition": "project:///index.ts#612,31",
+                "stackTrace": [
+                    {
+                        "sourcePosition": "project:///index.ts#612,31"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3009,23"
+                    },
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/pulumi/vendor/ts-node@7.0.1/index.js#3011,12"
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/cmd/run/run.ts#541,33"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/runtime/stack.ts#78,28"
+                    },
+                    {
+                        "sourcePosition": "project:///node_modules/@pulumi/resource.ts#1589,22"
+                    }
+                ]
+            }
+        ],
+        "metadata": {}
+    }
+}
