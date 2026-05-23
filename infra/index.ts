@@ -679,6 +679,10 @@ const backendTaskDefinition = new aws.ecs.TaskDefinition(
                   value: dbName,
                 },
                 {
+                    name: "DB_SSL",
+                    value: "true",
+                },
+                {
                   name: "AWS_REGION",
                   value: "ap-southeast-1",
                 },

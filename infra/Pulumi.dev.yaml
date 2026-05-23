@@ -3,4 +3,4 @@ config:
   aws:region: ap-southeast-1
   mini-signify-infra:dbPassword:
     secure: v1:ixHmSRlrN0RDJV9/:P2LsUKS6JbRfVLtn+sJeJNZidWBAvOpFXFk=
-  mini-signify-infra:backendImageTag: 77a04c34884e277e00c046957a81db71d3078172
+  mini-signify-infra:backendImageTag: 86478fadea3cd29bf2d71551c7b2ce6cadd16982

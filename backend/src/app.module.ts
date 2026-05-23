@@ -18,6 +18,8 @@ import { AppService } from './app.service';
         console.log('DB_USERNAME =', configService.get<string>('DB_USERNAME'));
         console.log('DB_NAME =', configService.get<string>('DB_NAME'));
 
+        const isDbSslEnabled = configService.get<string>('DB_SSL') === 'true';
+
         return {
           type: 'postgres',
           host: configService.get<string>('DB_HOST'),
@@ -27,6 +29,7 @@ import { AppService } from './app.service';
           database: configService.get<string>('DB_NAME'),
           autoLoadEntities: true,
           synchronize: true,
+           ssl: isDbSslEnabled ? { rejectUnauthorized: false } : false,
         };
       },
     }),
