@@ -702,6 +702,29 @@ const backendTaskDefinition = new aws.ecs.TaskDefinition(
   },
 );
 
+// ECS service that runs and keeps the backend task alive.
+const backendService = new aws.ecs.Service("miniSignifyBackendService", {
+  name: "mini-signify-backend-service",
+  cluster: backendCluster.arn,
+  taskDefinition: backendTaskDefinition.arn,
+  desiredCount: 1,
+  launchType: "FARGATE",
+
+  networkConfiguration: {
+    subnets: [backendPublicSubnetA.id, backendPublicSubnetB.id],
+    securityGroups: [backendTaskSecurityGroup.id],
+    assignPublicIp: true,
+  },
+
+  loadBalancers: [
+    {
+      targetGroupArn: backendTargetGroup.arn,
+      containerName: "mini-signify-backend",
+      containerPort: 3000,
+    },
+  ],
+});
+
 // Useful Pulumi outputs
 export const backendRepositoryUrl = backendRepository.repositoryUrl;
 export const frontendBucketName = frontendBucket.bucket;
@@ -736,3 +759,4 @@ export const backendDbEndpoint = backendDbInstance.address;
 export const backendDbPort = backendDbInstance.port;
 export const backendDbName = backendDbInstance.dbName;
 export const backendTaskDefinitionArn = backendTaskDefinition.arn;
+export const backendServiceName = backendService.name;

@@ -22,10 +22,10 @@ export class S3Service {
 
     this.s3Client = new S3Client({
       region,
-      credentials: {
-        accessKeyId,
-        secretAccessKey,
-      },
+      // credentials: {
+      //   accessKeyId,
+      //   secretAccessKey,
+      // },
     });
   }
 
