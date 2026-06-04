@@ -69,7 +69,7 @@ jobs:
       - name: Build frontend
         run: npm run build
         env:
-          VITE_API_BASE_URL: http://localhost:3000
+          VITE_API_BASE_URL: https://api.synadocs.com
 
   backend-docker-build:
     name: Backend Docker Build
@@ -162,7 +162,7 @@ jobs:
       - name: Build frontend
         run: npm run build
         env:
-          VITE_API_BASE_URL: http://localhost:3000
+          VITE_API_BASE_URL: https://api.synadocs.com
 
       - name: Configure AWS credentials using GitHub OIDC
         uses: aws-actions/configure-aws-credentials@v4

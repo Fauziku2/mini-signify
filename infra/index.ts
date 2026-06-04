@@ -9,6 +9,26 @@ const githubRepo = `${githubOwner}/${githubRepoName}`;
 const config = new pulumi.Config();
 const dbPassword = config.requireSecret("dbPassword");
 
+// ACM certificate ARN for backend HTTPS listener.
+const backendCertificateArn = config.require("backendCertificateArn");
+
+// ACM certificate ARN for frontend CloudFront custom domain.
+const frontendCertificateArn = config.require("frontendCertificateArn");
+
+// Domain used for Synadocs app.
+const domainName = "synadocs.com";
+
+// Backend API custom domain.
+const backendApiDomainName = `api.${domainName}`;
+
+// Frontend app custom domain.
+const frontendAppDomainName = `app.${domainName}`;
+
+// Existing Route 53 hosted zone for synadocs.com.
+const hostedZone = aws.route53.getZone({
+  name: domainName,
+});
+
 // ECR repo for backend Docker images
 const backendRepository = new aws.ecr.Repository("miniSignifyBackendRepo", {
   name: "mini-signify-backend",
@@ -53,6 +73,8 @@ const frontendDistribution = new aws.cloudfront.Distribution(
   {
     enabled: true,
     defaultRootObject: "index.html",
+
+    aliases: [frontendAppDomainName],
 
     origins: [
       {
@@ -101,10 +123,27 @@ const frontendDistribution = new aws.cloudfront.Distribution(
     },
 
     viewerCertificate: {
-      cloudfrontDefaultCertificate: true,
+      acmCertificateArn: frontendCertificateArn,
+      sslSupportMethod: "sni-only",
+      minimumProtocolVersion: "TLSv1.2_2021",
     },
   },
 );
+
+// Route 53 alias record pointing app.synadocs.com to the frontend CloudFront distribution.
+const frontendAppDnsRecord = new aws.route53.Record("miniSignifyFrontendAppDnsRecord", {
+  zoneId: hostedZone.then((zone) => zone.zoneId),
+  name: frontendAppDomainName,
+  type: "A",
+
+  aliases: [
+    {
+      name: frontendDistribution.domainName,
+      zoneId: frontendDistribution.hostedZoneId,
+      evaluateTargetHealth: false,
+    },
+  ],
+});
 
 // Allow CloudFront distribution to read files from private S3 bucket
 const frontendBucketPolicy = new aws.s3.BucketPolicy(
@@ -535,6 +574,37 @@ const backendHttpListener = new aws.lb.Listener("miniSignifyBackendHttpListener"
   ],
 });
 
+// HTTPS listener for backend API using ACM certificate.
+const backendHttpsListener = new aws.lb.Listener("miniSignifyBackendHttpsListener", {
+  loadBalancerArn: backendLoadBalancer.arn,
+  port: 443,
+  protocol: "HTTPS",
+  sslPolicy: "ELBSecurityPolicy-TLS13-1-2-2021-06",
+  certificateArn: backendCertificateArn,
+
+  defaultActions: [
+    {
+      type: "forward",
+      targetGroupArn: backendTargetGroup.arn,
+    },
+  ],
+});
+
+// Route 53 alias record pointing api.synadocs.com to the backend ALB.
+const backendApiDnsRecord = new aws.route53.Record("miniSignifyBackendApiDnsRecord", {
+  zoneId: hostedZone.then((zone) => zone.zoneId),
+  name: backendApiDomainName,
+  type: "A",
+
+  aliases: [
+    {
+      name: backendLoadBalancer.dnsName,
+      zoneId: backendLoadBalancer.zoneId,
+      evaluateTargetHealth: true,
+    },
+  ],
+});
+
 // Security group for RDS PostgreSQL
 const backendDbSecurityGroup = new aws.ec2.SecurityGroup(
   "miniSignifyBackendDbSecurityGroup",
@@ -764,3 +834,6 @@ export const backendDbPort = backendDbInstance.port;
 export const backendDbName = backendDbInstance.dbName;
 export const backendTaskDefinitionArn = backendTaskDefinition.arn;
 export const backendServiceName = backendService.name;
+export const backendHttpsListenerArn = backendHttpsListener.arn;
+export const backendApiFqdn = backendApiDnsRecord.fqdn;
+export const frontendAppFqdn = frontendAppDnsRecord.fqdn;
