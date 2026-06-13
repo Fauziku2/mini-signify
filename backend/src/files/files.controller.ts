@@ -7,13 +7,16 @@ import {
   ParseUUIDPipe,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
+import { SessionAuthGuard } from 'src/auth/guards/session-auth.guard';
 import { FilesService } from './files.service';
 
 @Controller('files')
+@UseGuards(SessionAuthGuard)
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
 
